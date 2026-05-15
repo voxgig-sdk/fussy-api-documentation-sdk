@@ -1,0 +1,497 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "FUSSY API Documentation",
+    "description": "The FUSSY API allows users to access and manipulate data related to hobbies through a structured database. This API supports posting and retrieving data, enabling integration with external applications and services. FUSSY operates a public database about hobbies and provides GraphQL API for posting and retrieving data.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "FUSSY, Inc.",
+      "url": "https://fussy-inc.github.io/docs/"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.fussy.fun",
+      "description": "Production server"
+    },
+    {
+      "url": "https://staging.api.fussy.fun",
+      "description": "Staging/Development server"
+    }
+  ],
+  "paths": {
+    "/graphql": {
+      "post": {
+        "summary": "GraphQL endpoint",
+        "description": "Main GraphQL endpoint for all queries and mutations. Supports authentication via X-Access-Token header for certain operations.",
+        "operationId": "graphqlEndpoint",
+        "tags": [
+          "GraphQL"
+        ],
+        "security": [
+          {},
+          {
+            "AccessToken": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "query"
+                ],
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "description": "GraphQL query or mutation string"
+                  },
+                  "variables": {
+                    "type": "object",
+                    "description": "Variables for the GraphQL query/mutation",
+                    "additionalProperties": true
+                  },
+                  "operationName": {
+                    "type": "string",
+                    "description": "Name of the operation to execute (if query contains multiple operations)"
+                  }
+                }
+              },
+              "examples": {
+                "issueFussyAccessToken": {
+                  "summary": "Issue Access Token",
+                  "value": {
+                    "query": "mutation IssueFussyAccessToken($sessionId: String!) {\n  issueFussyAccessToken(input: {sessionId: $sessionId}) {\n    accessToken\n  }\n}",
+                    "variables": {
+                      "sessionId": "550e8400-e29b-41d4-a716-446655440000"
+                    }
+                  }
+                },
+                "me": {
+                  "summary": "Get current user information",
+                  "value": {
+                    "query": "query me { me { id name } }"
+                  }
+                },
+                "createForm": {
+                  "summary": "Create a new form (database)",
+                  "value": {
+                    "query": "mutation createForm($input: CreateFormInput!) {\n  createForm(input: $input) {\n    id\n    title\n  }\n}",
+                    "variables": {
+                      "input": {
+                        "title": "Example Form"
+                      }
+                    }
+                  }
+                },
+                "createResponse": {
+                  "summary": "Create a response to a form",
+                  "value": {
+                    "query": "mutation createResponse($input: CreateResponseInput!) {\n  createResponse(input: $input) {\n    id\n  }\n}",
+                    "variables": {
+                      "input": {
+                        "formId": "form-id-here"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful GraphQL response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "description": "The result data from the GraphQL operation",
+                      "additionalProperties": true
+                    },
+                    "errors": {
+                      "type": "array",
+                      "description": "Array of errors if the operation failed",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "message": {
+                            "type": "string",
+                            "description": "Error message"
+                          },
+                          "locations": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "line": {
+                                  "type": "integer"
+                                },
+                                "column": {
+                                  "type": "integer"
+                                }
+                              }
+                            }
+                          },
+                          "path": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "accessTokenResponse": {
+                    "summary": "Access Token Response",
+                    "value": {
+                      "data": {
+                        "issueFussyAccessToken": {
+                          "accessToken": "example-access-token-string"
+                        }
+                      }
+                    }
+                  },
+                  "meResponse": {
+                    "summary": "Current User Response",
+                    "value": {
+                      "data": {
+                        "me": {
+                          "id": "user-id",
+                          "name": "User Name"
+                        }
+                      }
+                    }
+                  },
+                  "errorResponse": {
+                    "summary": "Error Response",
+                    "value": {
+                      "errors": [
+                        {
+                          "message": "Authentication required",
+                          "locations": [
+                            {
+                              "line": 1,
+                              "column": 1
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid GraphQL query or variables"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing access token for protected operations"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "summary": "GraphQL endpoint (GET)",
+        "description": "GraphQL endpoint accessible via GET method, typically used for introspection queries",
+        "operationId": "graphqlEndpointGet",
+        "tags": [
+          "GraphQL"
+        ],
+        "security": [
+          {},
+          {
+            "AccessToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "GraphQL query string"
+          },
+          {
+            "name": "variables",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "JSON-encoded variables object"
+          },
+          {
+            "name": "operationName",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Operation name to execute"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful GraphQL response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "AccessToken": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Access-Token",
+        "description": "Access token obtained through the OAuth-like authentication flow. Required for mutations and user information queries (me, createForm, createResponse)."
+      }
+    },
+    "schemas": {
+      "GraphQLRequest": {
+        "type": "object",
+        "required": [
+          "query"
+        ],
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "The GraphQL query or mutation string"
+          },
+          "variables": {
+            "type": "object",
+            "description": "Variables for the GraphQL operation",
+            "additionalProperties": true
+          },
+          "operationName": {
+            "type": "string",
+            "description": "The name of the operation to execute"
+          }
+        }
+      },
+      "GraphQLResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "description": "The data returned by the GraphQL operation",
+            "additionalProperties": true
+          },
+          "errors": {
+            "type": "array",
+            "description": "Errors that occurred during execution",
+            "items": {
+              "$ref": "#/components/schemas/GraphQLError"
+            }
+          }
+        }
+      },
+      "GraphQLError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message"
+          },
+          "locations": {
+            "type": "array",
+            "description": "Locations in the query where the error occurred",
+            "items": {
+              "type": "object",
+              "properties": {
+                "line": {
+                  "type": "integer"
+                },
+                "column": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "path": {
+            "type": "array",
+            "description": "Path to the field that caused the error",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "IssueFussyAccessTokenInput": {
+        "type": "object",
+        "required": [
+          "sessionId"
+        ],
+        "properties": {
+          "sessionId": {
+            "type": "string",
+            "description": "UUID v4 session ID obtained from user authentication flow",
+            "format": "uuid"
+          }
+        }
+      },
+      "AccessTokenResponse": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "description": "The issued access token for authenticated API requests"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "description": "User object representing a FUSSY user",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the user"
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name of the user"
+          }
+        }
+      },
+      "Form": {
+        "type": "object",
+        "description": "Form (database) object that contains multiple questions. Forms are used to collect structured data about hobbies.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the form"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the form"
+          },
+          "questions": {
+            "type": "array",
+            "description": "List of questions in this form",
+            "items": {
+              "$ref": "#/components/schemas/Question"
+            }
+          },
+          "categories": {
+            "type": "array",
+            "description": "Categories (Faves) associated with this form",
+            "items": {
+              "$ref": "#/components/schemas/Category"
+            }
+          }
+        }
+      },
+      "Question": {
+        "type": "object",
+        "description": "Question object within a form",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the question"
+          },
+          "text": {
+            "type": "string",
+            "description": "The question text"
+          }
+        }
+      },
+      "Response": {
+        "type": "object",
+        "description": "Response object representing an answer submission to a form",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the response"
+          },
+          "answers": {
+            "type": "array",
+            "description": "List of answers in this response",
+            "items": {
+              "$ref": "#/components/schemas/Answer"
+            }
+          }
+        }
+      },
+      "Answer": {
+        "type": "object",
+        "description": "Answer object representing a single answer to a question",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the answer"
+          },
+          "value": {
+            "type": "string",
+            "description": "The answer value"
+          }
+        }
+      },
+      "Category": {
+        "type": "object",
+        "description": "Category (Fave) object representing artists, works, magazines, etc.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the category"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the category"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "GraphQL",
+      "description": "GraphQL API endpoint for queries and mutations",
+      "externalDocs": {
+        "description": "Full API Documentation",
+        "url": "https://fussy-inc.github.io/docs/"
+      }
+    }
+  ],
+  "externalDocs": {
+    "description": "FUSSY API Schema Definition",
+    "url": "https://static.fussy.fun/api/schema.graphql"
+  }
+}

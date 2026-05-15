@@ -1,0 +1,42 @@
+{
+  "existing": {
+    "graph_ql": {
+      "GRAPH_QL00": {
+        "data": {},
+        "error": [],
+        "message": "s3e",
+        "operation_name": "s3f",
+        "query": "s40",
+        "variable": {}
+      },
+      "GRAPH_QL01": {
+        "data": {},
+        "error": [],
+        "message": "s7a",
+        "operation_name": "s7b",
+        "query": "s7c",
+        "variable": {}
+      },
+      "GRAPH_QL02": {
+        "data": {},
+        "error": [],
+        "message": "sb6",
+        "operation_name": "sb7",
+        "query": "sb8",
+        "variable": {}
+      }
+    }
+  },
+  "new": {
+    "graph_ql": {
+      "graph_ql_ref01": {
+        "data": {},
+        "error": [],
+        "message": "sf2",
+        "operation_name": "sf3",
+        "query": "sf4",
+        "variable": {}
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      contact: {
+        name: "FUSSY, Inc."
+        url: "https://fussy-inc.github.io/docs/"
+      }
+      description: "The FUSSY API allows users to access and manipulate data related to hobbies through a structured database. This API supports posting and retrieving data, enabling integration with external applications and services. FUSSY operates a public database about hobbies and provides GraphQL API for posting and retrieving data."
+      servers: [
+        {
+          description: "Production server"
+          url: "https://api.fussy.fun"
+        }
+        {
+          description: "Staging/Development server"
+          url: "https://staging.api.fussy.fun"
+        }
+      ]
+      title: "FUSSY API Documentation"
+      version: "1.0.0"
+    }
+  }
+}
+
+}
