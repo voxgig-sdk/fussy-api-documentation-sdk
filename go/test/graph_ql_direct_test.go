@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/fussy-api-documentation-sdk"
-	"github.com/voxgig-sdk/fussy-api-documentation-sdk/core"
+	sdk "github.com/voxgig-sdk/fussy-api-documentation-sdk/go"
+	"github.com/voxgig-sdk/fussy-api-documentation-sdk/go/core"
 )
 
 func TestGraphQlDirect(t *testing.T) {

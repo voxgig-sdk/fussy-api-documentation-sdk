@@ -7,7 +7,8 @@
         "message": "s3e",
         "operation_name": "s3f",
         "query": "s40",
-        "variable": {}
+        "variable": {},
+        "id": "GRAPH_QL00"
       },
       "GRAPH_QL01": {
         "data": {},
@@ -15,7 +16,8 @@
         "message": "s7a",
         "operation_name": "s7b",
         "query": "s7c",
-        "variable": {}
+        "variable": {},
+        "id": "GRAPH_QL01"
       },
       "GRAPH_QL02": {
         "data": {},
@@ -23,7 +25,8 @@
         "message": "sb6",
         "operation_name": "sb7",
         "query": "sb8",
-        "variable": {}
+        "variable": {},
+        "id": "GRAPH_QL02"
       }
     }
   },

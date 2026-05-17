@@ -1,10 +1,10 @@
 package voxgigfussyapidocumentationsdk
 
 import (
-	"github.com/voxgig-sdk/fussy-api-documentation-sdk/core"
-	"github.com/voxgig-sdk/fussy-api-documentation-sdk/entity"
-	"github.com/voxgig-sdk/fussy-api-documentation-sdk/feature"
-	_ "github.com/voxgig-sdk/fussy-api-documentation-sdk/utility"
+	"github.com/voxgig-sdk/fussy-api-documentation-sdk/go/core"
+	"github.com/voxgig-sdk/fussy-api-documentation-sdk/go/entity"
+	"github.com/voxgig-sdk/fussy-api-documentation-sdk/go/feature"
+	_ "github.com/voxgig-sdk/fussy-api-documentation-sdk/go/utility"
 )
 
 // Type aliases preserve external API.
