@@ -98,7 +98,6 @@ function graph_ql_basic_setup(extra)
     ["FUSSYAPIDOCUMENTATION_TEST_GRAPH_QL_ENTID"] = idmap,
     ["FUSSYAPIDOCUMENTATION_TEST_LIVE"] = "FALSE",
     ["FUSSYAPIDOCUMENTATION_TEST_EXPLAIN"] = "FALSE",
-    ["FUSSYAPIDOCUMENTATION_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
@@ -110,7 +109,6 @@ function graph_ql_basic_setup(extra)
   if env["FUSSYAPIDOCUMENTATION_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
-        apikey = env["FUSSYAPIDOCUMENTATION_APIKEY"],
       },
       extra or {},
     })

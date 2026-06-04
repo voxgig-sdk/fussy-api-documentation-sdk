@@ -127,7 +127,6 @@ func graph_qlBasicSetup(extra map[string]any) *entityTestSetup {
 		"FUSSYAPIDOCUMENTATION_TEST_GRAPH_QL_ENTID": idmap,
 		"FUSSYAPIDOCUMENTATION_TEST_LIVE":      "FALSE",
 		"FUSSYAPIDOCUMENTATION_TEST_EXPLAIN":   "FALSE",
-		"FUSSYAPIDOCUMENTATION_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["FUSSYAPIDOCUMENTATION_TEST_GRAPH_QL_ENTID"])
@@ -138,7 +137,6 @@ func graph_qlBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["FUSSYAPIDOCUMENTATION_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
-				"apikey": env["FUSSYAPIDOCUMENTATION_APIKEY"],
 			},
 			extra,
 		})

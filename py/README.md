@@ -23,12 +23,9 @@ loading a specific record.
 ### 1. Create a client
 
 ```python
-import os
 from fussyapidocumentation_sdk import FussyApiDocumentationSDK
 
-client = FussyApiDocumentationSDK({
-    "apikey": os.environ.get("FUSSY-API-DOCUMENTATION_APIKEY"),
-})
+client = FussyApiDocumentationSDK({})
 ```
 
 ### 2. List graphqls
@@ -129,7 +126,6 @@ Create a `.env.local` file at the project root:
 
 ```
 FUSSY-API-DOCUMENTATION_TEST_LIVE=TRUE
-FUSSY-API-DOCUMENTATION_APIKEY=<your-key>
 ```
 
 Then run:
@@ -153,7 +149,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `str` | API key for authentication. |
 | `base` | `str` | Base URL of the API server. |
 | `prefix` | `str` | URL path prefix prepended to all requests. |
 | `suffix` | `str` | URL path suffix appended to all requests. |

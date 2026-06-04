@@ -99,7 +99,6 @@ def _graph_ql_basic_setup(extra):
         "FUSSYAPIDOCUMENTATION_TEST_GRAPH_QL_ENTID": idmap,
         "FUSSYAPIDOCUMENTATION_TEST_LIVE": "FALSE",
         "FUSSYAPIDOCUMENTATION_TEST_EXPLAIN": "FALSE",
-        "FUSSYAPIDOCUMENTATION_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -110,7 +109,6 @@ def _graph_ql_basic_setup(extra):
     if env.get("FUSSYAPIDOCUMENTATION_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("FUSSYAPIDOCUMENTATION_APIKEY"),
             },
             extra or {},
         ])

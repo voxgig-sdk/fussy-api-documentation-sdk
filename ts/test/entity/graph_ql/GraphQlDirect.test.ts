@@ -79,14 +79,12 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'FUSSYAPIDOCUMENTATION_TEST_GRAPH_QL_ENTID': {},
     'FUSSYAPIDOCUMENTATION_TEST_LIVE': 'FALSE',
-    'FUSSYAPIDOCUMENTATION_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.FUSSYAPIDOCUMENTATION_TEST_LIVE
 
   if (live) {
     const client = new FussyApiDocumentationSDK({
-      apikey: env.FUSSYAPIDOCUMENTATION_APIKEY,
     })
 
     let idmap: any = env['FUSSYAPIDOCUMENTATION_TEST_GRAPH_QL_ENTID']

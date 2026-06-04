@@ -121,7 +121,6 @@ function basicSetup(extra?: any) {
     'FUSSY_API_DOCUMENTATION_TEST_GRAPH_QL_ENTID': idmap,
     'FUSSY_API_DOCUMENTATION_TEST_LIVE': 'FALSE',
     'FUSSY_API_DOCUMENTATION_TEST_EXPLAIN': 'FALSE',
-    'FUSSY_API_DOCUMENTATION_APIKEY': 'NONE',
   })
 
   idmap = env['FUSSY_API_DOCUMENTATION_TEST_GRAPH_QL_ENTID']
@@ -131,7 +130,6 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new FussyApiDocumentationSDK(merge([
       {
-        apikey: env.FUSSY_API_DOCUMENTATION_APIKEY,
       },
       extra
     ]))
