@@ -1,6 +1,11 @@
 # FussyApiDocumentation Python SDK
 
-The Python SDK for the FussyApiDocumentation API. Provides an entity-oriented interface following Pythonic conventions.
+
+
+The Python SDK for the FussyApiDocumentation API — an entity-oriented client following Pythonic conventions.
+
+> Other languages, the CLI, and MCP server live alongside this one — see
+> the [top-level README](../README.md).
 
 
 ## Install
@@ -23,15 +28,18 @@ loading a specific record.
 ### 1. Create a client
 
 ```python
+import os
 from fussyapidocumentation_sdk import FussyApiDocumentationSDK
 
-client = FussyApiDocumentationSDK({})
+client = FussyApiDocumentationSDK({
+    "apikey": os.environ.get("FUSSY-API-DOCUMENTATION_APIKEY"),
+})
 ```
 
 ### 2. List graphqls
 
 ```python
-result, err = client.GraphQl(None).list(None, None)
+result, err = client.GraphQl().list()
 if err:
     raise Exception(err)
 
@@ -45,7 +53,7 @@ if isinstance(result, list):
 
 ```python
 # Create
-created, _ = client.GraphQl(None).create({"name": "Example"}, None)
+created, _ = client.GraphQl().create({"name": "Example"})
 
 ```
 
@@ -91,11 +99,9 @@ print(fetchdef["headers"])
 Create a mock client for unit testing — no server required:
 
 ```python
-client = FussyApiDocumentationSDK.test(None, None)
+client = FussyApiDocumentationSDK.test()
 
-result, err = client.FussyApiDocumentation(None).load(
-    {"id": "test01"}, None
-)
+result, err = client.FussyApiDocumentation().load({"id": "test01"})
 # result contains mock response data
 ```
 
@@ -126,6 +132,7 @@ Create a `.env.local` file at the project root:
 
 ```
 FUSSY-API-DOCUMENTATION_TEST_LIVE=TRUE
+FUSSY-API-DOCUMENTATION_APIKEY=<your-key>
 ```
 
 Then run:
@@ -149,6 +156,7 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
+| `apikey` | `str` | API key for authentication. |
 | `base` | `str` | Base URL of the API server. |
 | `prefix` | `str` | URL path prefix prepended to all requests. |
 | `suffix` | `str` | URL path suffix appended to all requests. |

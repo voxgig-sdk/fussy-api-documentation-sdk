@@ -21,22 +21,7 @@ main: {
       ]
       title: "FUSSY API Documentation"
       version: "1.0.0"
-      tagline: "Access and manipulate a structured hobbies database via GraphQL"
-      homepage: "https://api.fussy.fun"
-      docs_url: "https://freepublicapis.com/fussy-api-documentation"
-      about_md: `The FUSSY API is a public GraphQL endpoint that exposes a structured database of hobby and otaku-related information. It is operated by Fussy Inc.
-
-The API is served from \`https://api.fussy.fun\` and accepts GraphQL operations over HTTP. Clients send a GraphQL document in the request to retrieve or post hobby data.
-
-Operational notes:
-
-- Transport: GraphQL over HTTP at \`https://api.fussy.fun/graphql\`
-- CORS: disabled, so browser clients will need to proxy requests
-- Authentication, rate limits, and licence terms are not documented on the public catalogue page`
-      entity_desc: {
-        graph_ql: "The single GraphQL surface for the hobbies database, served at `https://api.fussy.fun/graphql`; all queries and mutations are sent as GraphQL documents to this endpoint."
-      }
-      auth: false
     }
   }
 }
+

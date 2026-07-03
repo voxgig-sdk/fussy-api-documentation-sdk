@@ -93,12 +93,14 @@ func graph_qlDirectSetup(mockres any) *graph_qlDirectSetupResult {
 	env := envOverride(map[string]any{
 		"FUSSYAPIDOCUMENTATION_TEST_GRAPH_QL_ENTID": map[string]any{},
 		"FUSSYAPIDOCUMENTATION_TEST_LIVE":    "FALSE",
+		"FUSSYAPIDOCUMENTATION_APIKEY":       "NONE",
 	})
 
 	live := env["FUSSYAPIDOCUMENTATION_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
+			"apikey": env["FUSSYAPIDOCUMENTATION_APIKEY"],
 		}
 		client := sdk.NewFussyApiDocumentationSDK(mergedOpts)
 

@@ -1,20 +1,8 @@
 # FussyApiDocumentation SDK
 
-Access and manipulate a structured hobbies database via GraphQL
+FUSSY API Documentation client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About FUSSY API Documentation
-
-The FUSSY API is a public GraphQL endpoint that exposes a structured database of hobby and otaku-related information. It is operated by Fussy Inc.
-
-The API is served from `https://api.fussy.fun` and accepts GraphQL operations over HTTP. Clients send a GraphQL document in the request to retrieve or post hobby data.
-
-Operational notes:
-
-- Transport: GraphQL over HTTP at `https://api.fussy.fun/graphql`
-- CORS: disabled, so browser clients will need to proxy requests
-- Authentication, rate limits, and licence terms are not documented on the public catalogue page
 
 ## Try it
 
@@ -48,29 +36,31 @@ gem install fussy-api-documentation-sdk
 luarocks install fussy-api-documentation-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { FussyApiDocumentationSDK } from 'fussy-api-documentation'
 
-const client = new FussyApiDocumentationSDK({})
+const client = new FussyApiDocumentationSDK({
+  apikey: process.env.FUSSY-API-DOCUMENTATION_APIKEY,
+})
 
 // List all graphqls
 const graphqls = await client.GraphQl().list()
+console.log(graphqls.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -100,7 +90,7 @@ The API exposes one entity:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **GraphQl** | The single GraphQL surface for the hobbies database, served at `https://api.fussy.fun/graphql`; all queries and mutations are sent as GraphQL documents to this endpoint. | `/graphql` |
+| **GraphQl** |  | `/graphql` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -110,12 +100,16 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from fussyapidocumentation_sdk import FussyApiDocumentationSDK
 
-client = FussyApiDocumentationSDK({})
+client = FussyApiDocumentationSDK({
+    "apikey": os.environ.get("FUSSY-API-DOCUMENTATION_APIKEY"),
+})
 
 # List all graphqls
-graphqls, err = client.GraphQl(None).list(None, None)
+graphqls, err = client.GraphQl().list()
+print(graphqls)
 ```
 
 ### PHP
@@ -124,10 +118,13 @@ graphqls, err = client.GraphQl(None).list(None, None)
 <?php
 require_once 'fussyapidocumentation_sdk.php';
 
-$client = new FussyApiDocumentationSDK([]);
+$client = new FussyApiDocumentationSDK([
+    "apikey" => getenv("FUSSY-API-DOCUMENTATION_APIKEY"),
+]);
 
 // List all graphqls
-[$graphqls, $err] = $client->GraphQl(null)->list(null, null);
+[$graphqls, $err] = $client->GraphQl()->list();
+print_r($graphqls);
 ```
 
 ### Golang
@@ -135,10 +132,13 @@ $client = new FussyApiDocumentationSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/fussy-api-documentation-sdk/go"
 
-client := sdk.NewFussyApiDocumentationSDK(map[string]any{})
+client := sdk.NewFussyApiDocumentationSDK(map[string]any{
+    "apikey": os.Getenv("FUSSY-API-DOCUMENTATION_APIKEY"),
+})
 
 // List all graphqls
 graphqls, err := client.GraphQl(nil).List(nil, nil)
+fmt.Println(graphqls)
 ```
 
 ### Ruby
@@ -146,10 +146,13 @@ graphqls, err := client.GraphQl(nil).List(nil, nil)
 ```ruby
 require_relative "FussyApiDocumentation_sdk"
 
-client = FussyApiDocumentationSDK.new({})
+client = FussyApiDocumentationSDK.new({
+  "apikey" => ENV["FUSSY-API-DOCUMENTATION_APIKEY"],
+})
 
 # List all graphqls
-graphqls, err = client.GraphQl(nil).list(nil, nil)
+graphqls, err = client.GraphQl().list
+puts graphqls
 ```
 
 ### Lua
@@ -157,10 +160,13 @@ graphqls, err = client.GraphQl(nil).list(nil, nil)
 ```lua
 local sdk = require("fussy-api-documentation_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("FUSSY-API-DOCUMENTATION_APIKEY"),
+})
 
 -- List all graphqls
-local graphqls, err = client:GraphQl(nil):list(nil, nil)
+local graphqls, err = client:GraphQl():list()
+print(graphqls)
 ```
 
 ## Unit testing in offline mode
@@ -179,25 +185,21 @@ const result = await client.GraphQl().load({ id: 'test01' })
 ### Python
 
 ```python
-client = FussyApiDocumentationSDK.test(None, None)
-result, err = client.GraphQl(None).load(
-    {"id": "test01"}, None
-)
+client = FussyApiDocumentationSDK.test()
+result, err = client.GraphQl().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = FussyApiDocumentationSDK::test(null, null);
-[$result, $err] = $client->GraphQl(null)->load(
-    ["id" => "test01"], null
-);
+$client = FussyApiDocumentationSDK::test();
+[$result, $err] = $client->GraphQl()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.GraphQl(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -206,19 +208,15 @@ result, err := client.GraphQl(nil).Load(
 ### Ruby
 
 ```ruby
-client = FussyApiDocumentationSDK.test(nil, nil)
-result, err = client.GraphQl(nil).load(
-  { "id" => "test01" }, nil
-)
+client = FussyApiDocumentationSDK.test
+result, err = client.GraphQl().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:GraphQl(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:GraphQl():load({ id = "test01" })
 ```
 
 ## How it works
@@ -322,11 +320,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the FUSSY API Documentation
-
-- Upstream: [https://api.fussy.fun](https://api.fussy.fun)
-- API docs: [https://freepublicapis.com/fussy-api-documentation](https://freepublicapis.com/fussy-api-documentation)
 
 ---
 

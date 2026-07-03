@@ -92,6 +92,7 @@ function graph_ql_basic_setup($extra)
         "FUSSYAPIDOCUMENTATION_TEST_GRAPH_QL_ENTID" => $idmap,
         "FUSSYAPIDOCUMENTATION_TEST_LIVE" => "FALSE",
         "FUSSYAPIDOCUMENTATION_TEST_EXPLAIN" => "FALSE",
+        "FUSSYAPIDOCUMENTATION_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -103,6 +104,7 @@ function graph_ql_basic_setup($extra)
     if ($env["FUSSYAPIDOCUMENTATION_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
+                "apikey" => $env["FUSSYAPIDOCUMENTATION_APIKEY"],
             ],
             $extra ?? [],
         ]);

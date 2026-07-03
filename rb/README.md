@@ -1,6 +1,11 @@
 # FussyApiDocumentation Ruby SDK
 
-The Ruby SDK for the FussyApiDocumentation API. Provides an entity-oriented interface using idiomatic Ruby conventions.
+
+
+The Ruby SDK for the FussyApiDocumentation API — an entity-oriented client using idiomatic Ruby conventions.
+
+> Other languages, the CLI, and MCP server live alongside this one — see
+> the [top-level README](../README.md).
 
 
 ## Install
@@ -31,13 +36,15 @@ loading a specific record.
 ```ruby
 require_relative "FussyApiDocumentation_sdk"
 
-client = FussyApiDocumentationSDK.new({})
+client = FussyApiDocumentationSDK.new({
+  "apikey" => ENV["FUSSY-API-DOCUMENTATION_APIKEY"],
+})
 ```
 
 ### 2. List graphqls
 
 ```ruby
-result, err = client.GraphQl(nil).list(nil, nil)
+result, err = client.GraphQl().list
 raise err if err
 
 if result.is_a?(Array)
@@ -52,7 +59,7 @@ end
 
 ```ruby
 # Create
-created, _ = client.GraphQl(nil).create({ "name" => "Example" }, nil)
+created, _ = client.GraphQl().create({ "name" => "Example" })
 
 ```
 
@@ -97,11 +104,9 @@ puts fetchdef["headers"]
 Create a mock client for unit testing — no server required:
 
 ```ruby
-client = FussyApiDocumentationSDK.test(nil, nil)
+client = FussyApiDocumentationSDK.test
 
-result, err = client.FussyApiDocumentation(nil).load(
-  { "id" => "test01" }, nil
-)
+result, err = client.FussyApiDocumentation().load({ "id" => "test01" })
 # result contains mock response data
 ```
 
@@ -133,6 +138,7 @@ Create a `.env.local` file at the project root:
 
 ```
 FUSSY-API-DOCUMENTATION_TEST_LIVE=TRUE
+FUSSY-API-DOCUMENTATION_APIKEY=<your-key>
 ```
 
 Then run:
@@ -155,6 +161,7 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
+| `apikey` | `String` | API key for authentication. |
 | `base` | `String` | Base URL of the API server. |
 | `prefix` | `String` | URL path prefix prepended to all requests. |
 | `suffix` | `String` | URL path suffix appended to all requests. |
