@@ -8,12 +8,14 @@ source = {
   dir = "fussy-api-documentation-sdk/lua"
 }
 description = {
-  summary = "FussyApiDocumentation SDK for Lua",
-  license = "MIT"
+  summary = "Unofficial generated Lua SDK for the FUSSY API Documentation public API. Not affiliated with or endorsed by the upstream API provider.",
+  homepage = "https://github.com/voxgig-sdk/fussy-api-documentation-sdk",
+  issues_url = "https://github.com/voxgig-sdk/fussy-api-documentation-sdk/issues",
+  license = "MIT",
+  labels = { "voxgig", "sdk", "generated-sdk", "openapi", "api-client", "fussy-api-documentation" }
 }
 dependencies = {
   "lua >= 5.3",
-  "dkjson >= 2.5",
   "dkjson >= 2.5",
 }
 build = {

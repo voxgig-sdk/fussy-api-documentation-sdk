@@ -10,7 +10,7 @@ The Lua SDK for the FussyApiDocumentation API — an entity-oriented client usin
 
 ## Install
 ```bash
-luarocks install fussy-api-documentation-sdk
+luarocks install voxgig-sdk-fussy-api-documentation
 ```
 
 If the module is not yet published, add the source directory to

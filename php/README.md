@@ -10,7 +10,7 @@ The PHP SDK for the FussyApiDocumentation API — an entity-oriented client usin
 
 ## Install
 ```bash
-composer require voxgig/fussy-api-documentation-sdk
+composer require voxgig-sdk/fussy-api-documentation
 ```
 
 

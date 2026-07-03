@@ -10,7 +10,7 @@ The TypeScript SDK for the FussyApiDocumentation API — a type-safe, entity-ori
 
 ## Install
 ```bash
-npm install fussy-api-documentation
+npm install @voxgig-sdk/fussy-api-documentation
 ```
 ## Tutorial: your first API call
 

@@ -10,13 +10,13 @@ The Ruby SDK for the FussyApiDocumentation API — an entity-oriented client usi
 
 ## Install
 ```bash
-gem install fussy-api-documentation-sdk
+gem install voxgig-sdk-fussy-api-documentation
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "fussy-api-documentation-sdk"
+gem "voxgig-sdk-fussy-api-documentation"
 ```
 
 Then run:

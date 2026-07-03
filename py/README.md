@@ -10,7 +10,7 @@ The Python SDK for the FussyApiDocumentation API — an entity-oriented client f
 
 ## Install
 ```bash
-pip install fussy-api-documentation-sdk
+pip install voxgig-sdk-fussy-api-documentation
 ```
 
 Or install from source:
