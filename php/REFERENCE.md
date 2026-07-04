@@ -86,7 +86,7 @@ Prepare a fetch definition without sending the request. Returns the
 ## GraphQlEntity
 
 ```php
-$graph_ql = $client->graph_ql();
+$graph_ql = $client->GraphQl();
 ```
 
 ### Fields
@@ -107,7 +107,7 @@ $graph_ql = $client->graph_ql();
 Create a new entity with the given data. Throws on error.
 
 ```php
-$result = $client->graph_ql()->create([
+$result = $client->GraphQl()->create([
   "query" => /* `$STRING` */,
 ]);
 ```
@@ -117,7 +117,7 @@ $result = $client->graph_ql()->create([
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->graph_ql()->list([]);
+$results = $client->GraphQl()->list([]);
 ```
 
 ### Common Methods

@@ -30,16 +30,14 @@ client = FussyApiDocumentationSDK.new({
 })
 ```
 
-### 2. List graphqls
+### 2. List graphql records
 
 ```ruby
 begin
-  result = client.graphql.list
-  if result.is_a?(Array)
-    result.each do |item|
-      d = item.data_get
-      puts "#{d["id"]} #{d["name"]}"
-    end
+  # list returns an Array of GraphQl records — iterate directly.
+  graphqls = client.GraphQl.list
+  graphqls.each do |item|
+    puts "#{item["id"]} #{item["name"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -49,8 +47,8 @@ end
 ### 4. Create, update, and remove
 
 ```ruby
-# Create
-created = client.graphql.create({ "name" => "Example" })
+# create returns the bare created GraphQl record.
+created = client.GraphQl.create({ "name" => "Example" })
 
 ```
 
@@ -95,13 +93,17 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = FussyApiDocumentationSDK.test
+client = FussyApiDocumentationSDK.test({
+  "entity" => { "graphql" => { "test01" => { "id" => "test01" } } },
+})
 
-result = client.graphql.load({ "id" => "test01" })
-# result contains mock response data
+# load returns the bare mock record (raises on error).
+graphql = client.GraphQl.load({ "id" => "test01" })
+puts graphql
 ```
 
 ### Use a custom fetch function
@@ -240,7 +242,7 @@ API path: `/graphql`
 
 ### GraphQl
 
-Create an instance: `const graph_ql = client.graph_ql`
+Create an instance: `graph_ql = client.GraphQl`
 
 #### Operations
 
@@ -262,15 +264,16 @@ Create an instance: `const graph_ql = client.graph_ql`
 
 #### Example: List
 
-```ts
-const graph_qls = await client.graph_ql.list()
+```ruby
+# list returns an Array of GraphQl records (raises on error).
+graph_qls = client.GraphQl.list
 ```
 
 #### Example: Create
 
-```ts
-const graph_ql = await client.graph_ql.create({
-  query: /* `$STRING` */,
+```ruby
+graph_ql = client.GraphQl.create({
+  "query" => nil, # `$STRING`
 })
 ```
 
@@ -346,7 +349,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-graphql = client.graphql
+graphql = client.GraphQl
 graphql.load({ "id" => "example_id" })
 
 # graphql.data_get now returns the loaded graphql data

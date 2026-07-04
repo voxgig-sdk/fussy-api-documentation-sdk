@@ -34,14 +34,16 @@ client = FussyApiDocumentationSDK({
 })
 ```
 
-### 2. List graphqls
+### 2. List graphql records
+
+`list()` returns a `list` of records (each a `dict`) and raises on
+error — iterate it directly.
 
 ```python
 try:
-    result = client.graphql.list()
-    for item in result:
-        d = item.data_get()
-        print(d["id"], d["name"])
+    graphqls = client.GraphQl().list({})
+    for graphql in graphqls:
+        print(graphql)
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -49,8 +51,8 @@ except Exception as err:
 ### 4. Create, update, and remove
 
 ```python
-# Create
-created = client.graphql.create({"name": "Example"})
+# Create — returns the bare created record (a dict)
+created = client.GraphQl().create({"name": "Example"})
 
 ```
 
@@ -97,8 +99,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = FussyApiDocumentationSDK.test()
 
-result = client.graphql.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+graphql = client.GraphQl().load({"id": "test01"})
+# graphql contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -238,7 +241,7 @@ API path: `/graphql`
 
 ### GraphQl
 
-Create an instance: `const graph_ql = client.graph_ql`
+Create an instance: `graph_ql = client.GraphQl()`
 
 #### Operations
 
@@ -260,15 +263,15 @@ Create an instance: `const graph_ql = client.graph_ql`
 
 #### Example: List
 
-```ts
-const graph_qls = await client.graph_ql.list()
+```python
+graph_qls = client.GraphQl().list({})
 ```
 
 #### Example: Create
 
-```ts
-const graph_ql = await client.graph_ql.create({
-  query: /* `$STRING` */,
+```python
+graph_ql = client.GraphQl().create({
+    "query": ...,  # `$STRING`
 })
 ```
 
@@ -343,7 +346,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-graphql = client.graphql
+graphql = client.GraphQl()
 graphql.load({"id": "example_id"})
 
 # graphql.data_get() now returns the loaded graphql data

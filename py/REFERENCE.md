@@ -81,7 +81,7 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 ## GraphQlEntity
 
 ```python
-graph_ql = client.graph_ql
+graph_ql = client.GraphQl()
 ```
 
 ### Fields
@@ -102,8 +102,8 @@ graph_ql = client.graph_ql
 Create a new entity with the given data. Returns the created entity data and raises on error.
 
 ```python
-result = client.graph_ql.create({
-    "query": # `$STRING`,
+result = client.GraphQl().create({
+    "query": ...,  # `$STRING`
 })
 ```
 
@@ -112,7 +112,9 @@ result = client.graph_ql.create({
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.graph_ql.list({})
+results = client.GraphQl().list({})
+for graph_ql in results:
+    print(graph_ql)
 ```
 
 ### Common Methods

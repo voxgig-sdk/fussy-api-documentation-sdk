@@ -28,9 +28,11 @@ const client = new FussyApiDocumentationSDK({
   apikey: process.env.FUSSY_API_DOCUMENTATION_APIKEY,
 })
 
-// List all graphqls
-const graphqls = await client.graphql.list()
-console.log(graphqls.data)
+// List all graphqls (returns GraphQl[])
+const graphqls = await client.GraphQl().list()
+for (const graphql of graphqls) {
+  console.log(graphql)
+}
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -88,9 +90,10 @@ client = FussyApiDocumentationSDK({
     "apikey": os.environ.get("FUSSY_API_DOCUMENTATION_APIKEY"),
 })
 
-# List all graphqls
-graphqls = client.graphql.list()
-print(graphqls)
+# List all graphqls (returns a list, raises on error)
+graphqls = client.GraphQl().list({})
+for graphql in graphqls:
+    print(graphql)
 ```
 
 ### PHP
@@ -103,8 +106,8 @@ $client = new FussyApiDocumentationSDK([
     "apikey" => getenv("FUSSY_API_DOCUMENTATION_APIKEY"),
 ]);
 
-// List all graphqls (throws on error)
-$graphqls = $client->graphql()->list();
+// List all graphqls (returns an array; throws on error)
+$graphqls = $client->GraphQl()->list();
 print_r($graphqls);
 ```
 
@@ -131,8 +134,8 @@ client = FussyApiDocumentationSDK.new({
   "apikey" => ENV["FUSSY_API_DOCUMENTATION_APIKEY"],
 })
 
-# List all graphqls
-graphqls = client.graphql.list
+# List all graphqls (returns an Array; raises on error)
+graphqls = client.GraphQl.list
 puts graphqls
 ```
 
@@ -146,7 +149,7 @@ local client = sdk.new({
 })
 
 -- List all graphqls
-local graphqls, err = client:graphql():list()
+local graphqls, err = client:GraphQl():list()
 print(graphqls)
 ```
 
@@ -159,22 +162,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = FussyApiDocumentationSDK.test()
-const result = await client.graphql.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const graphql = await client.GraphQl().load({ id: 'test01' })
+// graphql is a bare GraphQl populated with mock data
+console.log(graphql)
 ```
 
 ### Python
 
 ```python
 client = FussyApiDocumentationSDK.test()
-result = client.graphql.load({"id": "test01"})
+graphql = client.GraphQl().load({"id": "test01"})
+print(graphql)
 ```
 
 ### PHP
 
 ```php
-$client = FussyApiDocumentationSDK::test();
-$result = $client->graphql()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = FussyApiDocumentationSDK::test([
+    "entity" => ["graphql" => ["test01" => ["id" => "test01"]]],
+]);
+$graphql = $client->GraphQl()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -189,15 +197,18 @@ result, err := client.GraphQl(nil).Load(
 ### Ruby
 
 ```ruby
-client = FussyApiDocumentationSDK.test
-result = client.graphql.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = FussyApiDocumentationSDK.test({
+  "entity" => { "graphql" => { "test01" => { "id" => "test01" } } },
+})
+graphql = client.GraphQl.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:graphql():load({ id = "test01" })
+local result, err = client:GraphQl():load({ id = "test01" })
 ```
 
 ## How it works
@@ -245,6 +256,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

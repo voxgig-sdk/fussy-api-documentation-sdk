@@ -208,13 +208,7 @@ class FussyApiDocumentationSDK
   end
 
 
-  # Idiomatic facade: client.graph_ql.list / client.graph_ql.load({ "id" => ... })
-  def graph_ql
-    require_relative 'entity/graph_ql_entity'
-    @graph_ql ||= GraphQlEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.graph_ql instead.
+  # Canonical facade: client.GraphQl.list / client.GraphQl.load({ "id" => ... })
   def GraphQl(data = nil)
     require_relative 'entity/graph_ql_entity'
     GraphQlEntity.new(self, data)

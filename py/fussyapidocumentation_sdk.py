@@ -220,25 +220,15 @@ class FussyApiDocumentationSDK:
         }
 
 
-    @property
-    def graph_ql(self):
-        """Idiomatic facade: client.graph_ql.list() / client.graph_ql.load({"id": ...})."""
-        from entity.graph_ql_entity import GraphQlEntity
-        cached = getattr(self, "_graph_ql", None)
-        if cached is None:
-            cached = GraphQlEntity(self, None)
-            self._graph_ql = cached
-        return cached
-
-    def GraphQl(self, data=None):
-        # Deprecated: use client.graph_ql instead.
+    def GraphQl(self, data=None) -> "GraphQlEntity":
+        """Entity factory: client.GraphQl().list({}) / client.GraphQl().load({"id": ...})."""
         from entity.graph_ql_entity import GraphQlEntity
         return GraphQlEntity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "FussyApiDocumentationSDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -258,3 +248,9 @@ class FussyApiDocumentationSDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.graph_ql_entity import GraphQlEntity

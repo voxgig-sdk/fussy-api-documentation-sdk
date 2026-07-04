@@ -31,18 +31,16 @@ $client = new FussyApiDocumentationSDK([
 ]);
 ```
 
-### 2. List graphqls
+### 2. List graphql records
 
 ```php
 try {
-    $result = $client->graphql()->list();
-    if (is_array($result)) {
-        foreach ($result as $item) {
-            $d = $item->data_get();
-            echo $d["id"] . " " . $d["name"] . "\n";
-        }
+    // list() returns an array of GraphQl records — iterate directly.
+    $graphqls = $client->GraphQl()->list();
+    foreach ($graphqls as $item) {
+        echo $item["id"] . " " . $item["name"] . "\n";
     }
-} catch (\Exception $err) {
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -50,8 +48,8 @@ try {
 ### 4. Create, update, and remove
 
 ```php
-// Create
-$created = $client->graphql()->create(["name" => "Example"]);
+// create() returns the bare created GraphQl record.
+$created = $client->GraphQl()->create(["name" => "Example"]);
 
 ```
 
@@ -96,13 +94,17 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = FussyApiDocumentationSDK::test();
+$client = FussyApiDocumentationSDK::test([
+    "entity" => ["graphql" => ["test01" => ["id" => "test01"]]],
+]);
 
-$result = $client->graphql()->load(["id" => "test01"]);
-// $result contains mock response data
+// load() returns the bare mock record (throws on error).
+$graphql = $client->GraphQl()->load(["id" => "test01"]);
+print_r($graphql);
 ```
 
 ### Use a custom fetch function
@@ -245,7 +247,7 @@ API path: `/graphql`
 
 ### GraphQl
 
-Create an instance: `const graph_ql = client.graph_ql`
+Create an instance: `$graph_ql = $client->GraphQl();`
 
 #### Operations
 
@@ -267,16 +269,17 @@ Create an instance: `const graph_ql = client.graph_ql`
 
 #### Example: List
 
-```ts
-const graph_qls = await client.graph_ql.list()
+```php
+// list() returns an array of GraphQl records (throws on error).
+$graph_qls = $client->GraphQl()->list();
 ```
 
 #### Example: Create
 
-```ts
-const graph_ql = await client.graph_ql.create({
-  query: /* `$STRING` */,
-})
+```php
+$graph_ql = $client->GraphQl()->create([
+    "query" => null, // `$STRING`
+]);
 ```
 
 
@@ -351,7 +354,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$graphql = $client->graphql();
+$graphql = $client->GraphQl();
 $graphql->load(["id" => "example_id"]);
 
 // $graphql->dataGet() now returns the loaded graphql data

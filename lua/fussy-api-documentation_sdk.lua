@@ -244,8 +244,9 @@ end
 
 
 
--- Idiomatic facade: client:graph_ql():list() / client:graph_ql():load({ id = ... })
-function FussyApiDocumentationSDK:graph_ql(data)
+-- Idiomatic facade: client:GraphQl():list() / client:GraphQl():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function FussyApiDocumentationSDK:GraphQl(data)
   local EntityMod = require("entity.graph_ql_entity")
   if data == nil then
     if self._graph_ql == nil then
@@ -253,12 +254,6 @@ function FussyApiDocumentationSDK:graph_ql(data)
     end
     return self._graph_ql
   end
-  return EntityMod.new(self, data)
-end
-
--- Deprecated: use client:graph_ql() instead.
-function FussyApiDocumentationSDK:GraphQl(data)
-  local EntityMod = require("entity.graph_ql_entity")
   return EntityMod.new(self, data)
 end
 

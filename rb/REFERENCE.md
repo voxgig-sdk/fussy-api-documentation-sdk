@@ -87,7 +87,7 @@ same parameters as `direct()`. Raises on error.
 ## GraphQlEntity
 
 ```ruby
-graph_ql = client.graph_ql
+graph_ql = client.GraphQl
 ```
 
 ### Fields
@@ -108,7 +108,7 @@ graph_ql = client.graph_ql
 Create a new entity with the given data. Raises on error.
 
 ```ruby
-result = client.graph_ql.create({
+result = client.GraphQl.create({
   "query" => # `$STRING`,
 })
 ```
@@ -118,7 +118,7 @@ result = client.graph_ql.create({
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.graph_ql.list(nil)
+results = client.GraphQl.list(nil)
 ```
 
 ### Common Methods
