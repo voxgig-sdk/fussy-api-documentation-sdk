@@ -110,7 +110,7 @@ Alias for `FussyApiDocumentationSDK.test()`.
 ## GraphQlEntity
 
 ```ts
-const graph_ql = client.GraphQl()
+const graph_ql = client.graph_ql
 ```
 
 ### Fields
@@ -131,7 +131,7 @@ const graph_ql = client.GraphQl()
 Create a new entity with the given data.
 
 ```ts
-const result = await client.GraphQl().create({
+const result = await client.graph_ql.create({
   query: /* `$STRING` */,
 })
 ```
@@ -141,7 +141,7 @@ const result = await client.GraphQl().create({
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.GraphQl().list()
+const results = await client.graph_ql.list()
 ```
 
 ### Common Methods

@@ -9,11 +9,9 @@ The Python SDK for the FussyApiDocumentation API — an entity-oriented client f
 
 
 ## Install
-```bash
-pip install voxgig-sdk-fussy-api-documentation
-```
-
-Or install from source:
+This package is not yet published to PyPI. Install it from the GitHub
+release tag (`py/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/fussy-api-documentation-sdk/releases)) or
+from a source checkout:
 
 ```bash
 pip install -e .
@@ -32,28 +30,27 @@ import os
 from fussyapidocumentation_sdk import FussyApiDocumentationSDK
 
 client = FussyApiDocumentationSDK({
-    "apikey": os.environ.get("FUSSY-API-DOCUMENTATION_APIKEY"),
+    "apikey": os.environ.get("FUSSY_API_DOCUMENTATION_APIKEY"),
 })
 ```
 
 ### 2. List graphqls
 
 ```python
-result, err = client.GraphQl().list()
-if err:
-    raise Exception(err)
-
-if isinstance(result, list):
+try:
+    result = client.graphql.list()
     for item in result:
         d = item.data_get()
         print(d["id"], d["name"])
+except Exception as err:
+    print(f"list failed: {err}")
 ```
 
 ### 4. Create, update, and remove
 
 ```python
 # Create
-created, _ = client.GraphQl().create({"name": "Example"})
+created = client.graphql.create({"name": "Example"})
 
 ```
 
@@ -65,29 +62,28 @@ created, _ = client.GraphQl().create({"name": "Example"})
 For endpoints not covered by entity methods:
 
 ```python
-result, err = client.direct({
+result = client.direct({
     "path": "/api/resource/{id}",
     "method": "GET",
     "params": {"id": "example"},
 })
-if err:
-    raise Exception(err)
 
 if result["ok"]:
     print(result["status"])  # 200
     print(result["data"])    # response body
+else:
+    print(result["err"])     # error value
 ```
 
 ### Prepare a request without sending it
 
 ```python
-fetchdef, err = client.prepare({
+# prepare() returns the fetch definition and raises on error.
+fetchdef = client.prepare({
     "path": "/api/resource/{id}",
     "method": "DELETE",
     "params": {"id": "example"},
 })
-if err:
-    raise Exception(err)
 
 print(fetchdef["url"])
 print(fetchdef["method"])
@@ -101,7 +97,7 @@ Create a mock client for unit testing — no server required:
 ```python
 client = FussyApiDocumentationSDK.test()
 
-result, err = client.FussyApiDocumentation().load({"id": "test01"})
+result = client.graphql.load({"id": "test01"})
 # result contains mock response data
 ```
 
@@ -131,8 +127,8 @@ client = FussyApiDocumentationSDK({
 Create a `.env.local` file at the project root:
 
 ```
-FUSSY-API-DOCUMENTATION_TEST_LIVE=TRUE
-FUSSY-API-DOCUMENTATION_APIKEY=<your-key>
+FUSSY_API_DOCUMENTATION_TEST_LIVE=TRUE
+FUSSY_API_DOCUMENTATION_APIKEY=<your-key>
 ```
 
 Then run:
@@ -178,8 +174,8 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | --- | --- | --- |
 | `options_map` | `() -> dict` | Deep copy of current SDK options. |
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
-| `prepare` | `(fetchargs) -> (dict, err)` | Build an HTTP request definition without sending. |
-| `direct` | `(fetchargs) -> (dict, err)` | Build and send an HTTP request. |
+| `prepare` | `(fetchargs) -> dict` | Build an HTTP request definition without sending. Raises on error. |
+| `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
 | `GraphQl` | `(data) -> GraphQlEntity` | Create a GraphQl entity instance. |
 
 ### Entity interface
@@ -188,11 +184,11 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> (any, err)` | Load a single entity by match criteria. |
-| `list` | `(reqmatch, ctrl) -> (any, err)` | List entities matching the criteria. |
-| `create` | `(reqdata, ctrl) -> (any, err)` | Create a new entity. |
-| `update` | `(reqdata, ctrl) -> (any, err)` | Update an existing entity. |
-| `remove` | `(reqmatch, ctrl) -> (any, err)` | Remove an entity. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
+| `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria. Raises on error. |
+| `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
+| `update` | `(reqdata, ctrl) -> any` | Update an existing entity. Raises on error. |
+| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
 | `data_get` | `() -> dict` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> dict` | Get entity match criteria. |
@@ -202,8 +198,12 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(any, err)`. The first value is a
-`dict` with these keys:
+Entity operations return the bare result data (a `dict` for single-entity
+ops, a `list` for `list`) and raise on error. Wrap calls in
+`try`/`except` to handle failures.
+
+The `direct()` escape hatch never raises — it returns a result `dict`
+you branch on via `result["ok"]`:
 
 | Key | Type | Description |
 | --- | --- | --- |
@@ -238,7 +238,7 @@ API path: `/graphql`
 
 ### GraphQl
 
-Create an instance: `const graph_ql = client.GraphQl()`
+Create an instance: `const graph_ql = client.graph_ql`
 
 #### Operations
 
@@ -261,13 +261,13 @@ Create an instance: `const graph_ql = client.GraphQl()`
 #### Example: List
 
 ```ts
-const graph_qls = await client.GraphQl().list()
+const graph_qls = await client.graph_ql.list()
 ```
 
 #### Example: Create
 
 ```ts
-const graph_ql = await client.GraphQl().create({
+const graph_ql = await client.graph_ql.create({
   query: /* `$STRING` */,
 })
 ```
@@ -343,11 +343,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-moon = client.Moon()
-moon.load({"planet_id": "earth", "id": "luna"})
+graphql = client.graphql
+graphql.load({"id": "example_id"})
 
-# moon.data_get() now returns the loaded moon data
-# moon.match_get() returns the last match criteria
+# graphql.data_get() now returns the loaded graphql data
+# graphql.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

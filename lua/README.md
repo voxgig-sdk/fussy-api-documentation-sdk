@@ -9,12 +9,9 @@ The Lua SDK for the FussyApiDocumentation API — an entity-oriented client usin
 
 
 ## Install
-```bash
-luarocks install voxgig-sdk-fussy-api-documentation
-```
-
-If the module is not yet published, add the source directory to
-your `LUA_PATH`:
+This package is not yet published to LuaRocks. Install it from the
+GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/fussy-api-documentation-sdk/releases)),
+or add the source directory to your `LUA_PATH`:
 
 ```bash
 export LUA_PATH="path/to/lua/?.lua;path/to/lua/?/init.lua;;"
@@ -32,14 +29,14 @@ loading a specific record.
 local sdk = require("fussy-api-documentation_sdk")
 
 local client = sdk.new({
-  apikey = os.getenv("FUSSY-API-DOCUMENTATION_APIKEY"),
+  apikey = os.getenv("FUSSY_API_DOCUMENTATION_APIKEY"),
 })
 ```
 
 ### 2. List graphqls
 
 ```lua
-local result, err = client:GraphQl():list()
+local result, err = client:graphql():list()
 if err then error(err) end
 
 if type(result) == "table" then
@@ -54,7 +51,7 @@ end
 
 ```lua
 -- Create
-local created, _ = client:GraphQl():create({ name = "Example" })
+local created, _ = client:graphql():create({ name = "Example" })
 
 ```
 
@@ -101,7 +98,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:FussyApiDocumentation():load({ id = "test01" })
+local result, err = client:graphql():load({ id = "test01" })
 -- result contains mock response data
 ```
 
@@ -134,8 +131,8 @@ local client = sdk.new({
 Create a `.env.local` file at the project root:
 
 ```
-FUSSY-API-DOCUMENTATION_TEST_LIVE=TRUE
-FUSSY-API-DOCUMENTATION_APIKEY=<your-key>
+FUSSY_API_DOCUMENTATION_TEST_LIVE=TRUE
+FUSSY_API_DOCUMENTATION_APIKEY=<your-key>
 ```
 
 Then run:
@@ -240,7 +237,7 @@ API path: `/graphql`
 
 ### GraphQl
 
-Create an instance: `const graph_ql = client.GraphQl()`
+Create an instance: `const graph_ql = client.graph_ql`
 
 #### Operations
 
@@ -263,13 +260,13 @@ Create an instance: `const graph_ql = client.GraphQl()`
 #### Example: List
 
 ```ts
-const graph_qls = await client.GraphQl().list()
+const graph_qls = await client.graph_ql.list()
 ```
 
 #### Example: Create
 
 ```ts
-const graph_ql = await client.GraphQl().create({
+const graph_ql = await client.graph_ql.create({
   query: /* `$STRING` */,
 })
 ```
@@ -346,11 +343,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local moon = client:Moon(nil)
-moon:load({ planet_id = "earth", id = "luna" }, nil)
+local graphql = client:graphql()
+graphql:load({ id = "example_id" })
 
--- moon:data_get() now returns the loaded moon data
--- moon:match_get() returns the last match criteria
+-- graphql:data_get() now returns the loaded graphql data
+-- graphql:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

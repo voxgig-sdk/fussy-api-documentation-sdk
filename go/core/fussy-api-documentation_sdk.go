@@ -245,6 +245,9 @@ func (sdk *FussyApiDocumentationSDK) Direct(fetchargs map[string]any) (map[strin
 }
 
 
+// GraphQl returns a GraphQl entity bound to this client.
+// Idiomatic usage: client.GraphQl(nil).List(nil, nil) or
+// client.GraphQl(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *FussyApiDocumentationSDK) GraphQl(data map[string]any) FussyApiDocumentationEntity {
 	return NewGraphQlEntityFunc(sdk, data)
 }

@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch GraphQlListMatch
+---@param ctrl? table
+---@return GraphQl[]
+---@return string? err
 function GraphQlEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -103,6 +107,10 @@ end
 
 
 
+---@param reqdata GraphQlCreateData
+---@param ctrl? table
+---@return GraphQl
+---@return string? err
 function GraphQlEntity:create(reqdata, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

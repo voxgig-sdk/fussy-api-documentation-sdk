@@ -43,16 +43,14 @@ class GraphQlEntityTest extends TestCase
         $graph_ql_ref01_data = Helpers::to_map(Vs::getprop(
             Vs::getpath($setup["data"], "new.graph_ql"), "graph_ql_ref01"));
 
-        [$graph_ql_ref01_data_result, $err] = $graph_ql_ref01_ent->create($graph_ql_ref01_data, null);
-        $this->assertNull($err);
+        $graph_ql_ref01_data_result = $graph_ql_ref01_ent->create($graph_ql_ref01_data, null);
         $graph_ql_ref01_data = Helpers::to_map($graph_ql_ref01_data_result);
         $this->assertNotNull($graph_ql_ref01_data);
 
         // LIST
         $graph_ql_ref01_match = [];
 
-        [$graph_ql_ref01_list_result, $err] = $graph_ql_ref01_ent->list($graph_ql_ref01_match, null);
-        $this->assertNull($err);
+        $graph_ql_ref01_list_result = $graph_ql_ref01_ent->list($graph_ql_ref01_match, null);
         $this->assertIsArray($graph_ql_ref01_list_result);
 
         $found_item = sdk_select(

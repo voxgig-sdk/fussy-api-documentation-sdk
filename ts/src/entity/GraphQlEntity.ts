@@ -14,9 +14,14 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  GraphQl,
+  GraphQlListMatch,
+  GraphQlCreateData,
+} from '../FussyApiDocumentationTypes'
 
 // TODO: needs Entity superclass
-class GraphQlEntity extends FussyApiDocumentationEntityBase {
+class GraphQlEntity extends FussyApiDocumentationEntityBase<GraphQl> {
 
   constructor(client: FussyApiDocumentationSDK, entopts: any) {
     super(client, entopts)
@@ -33,7 +38,7 @@ class GraphQlEntity extends FussyApiDocumentationEntityBase {
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: GraphQlListMatch, ctrl?: Control): Promise<GraphQl[]> {
 
     const utility = this._utility
 
@@ -133,14 +138,16 @@ class GraphQlEntity extends FussyApiDocumentationEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<GraphQl[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
 
 
 
-  async create(this: any, reqdata?: any, ctrl?: Control) {
+  async create(this: any, reqdata?: GraphQlCreateData, ctrl?: Control): Promise<GraphQl> {
 
     const utility = this._utility
     const {
@@ -239,7 +246,9 @@ class GraphQlEntity extends FussyApiDocumentationEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<GraphQl> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

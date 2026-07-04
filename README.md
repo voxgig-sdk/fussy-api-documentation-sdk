@@ -10,26 +10,26 @@ This is an unofficial SDK for the FUSSY API Documentation public API, generated 
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/fussy-api-documentation` | `npm install @voxgig-sdk/fussy-api-documentation` |
-| Python | `voxgig-sdk-fussy-api-documentation` | `pip install voxgig-sdk-fussy-api-documentation` |
-| PHP | `voxgig-sdk/fussy-api-documentation` | `composer require voxgig-sdk/fussy-api-documentation` |
-| Golang | `github.com/voxgig-sdk/fussy-api-documentation-sdk/go` | `go get github.com/voxgig-sdk/fussy-api-documentation-sdk/go` |
-| Ruby | `voxgig-sdk-fussy-api-documentation` | `gem install voxgig-sdk-fussy-api-documentation` |
-| Lua | `voxgig-sdk-fussy-api-documentation` | `luarocks install voxgig-sdk-fussy-api-documentation` |
+| TypeScript | `@voxgig-sdk/fussy-api-documentation` | publish pending — [install from git tag](https://github.com/voxgig-sdk/fussy-api-documentation-sdk/releases) |
+| Python | `voxgig-sdk-fussy-api-documentation` | publish pending — [install from git tag](https://github.com/voxgig-sdk/fussy-api-documentation-sdk/releases) |
+| PHP | `voxgig-sdk/fussy-api-documentation` | publish pending — [install from git tag](https://github.com/voxgig-sdk/fussy-api-documentation-sdk/releases) |
+| Golang | `github.com/voxgig-sdk/fussy-api-documentation-sdk/go` | `go get github.com/voxgig-sdk/fussy-api-documentation-sdk/go@latest` |
+| Ruby | `voxgig-sdk-fussy-api-documentation` | publish pending — [install from git tag](https://github.com/voxgig-sdk/fussy-api-documentation-sdk/releases) |
+| Lua | `voxgig-sdk-fussy-api-documentation` | publish pending — [install from git tag](https://github.com/voxgig-sdk/fussy-api-documentation-sdk/releases) |
 
 ## Quickstart
 
 ### TypeScript
 
 ```ts
-import { FussyApiDocumentationSDK } from 'fussy-api-documentation'
+import { FussyApiDocumentationSDK } from '@voxgig-sdk/fussy-api-documentation'
 
 const client = new FussyApiDocumentationSDK({
-  apikey: process.env.FUSSY-API-DOCUMENTATION_APIKEY,
+  apikey: process.env.FUSSY_API_DOCUMENTATION_APIKEY,
 })
 
 // List all graphqls
-const graphqls = await client.GraphQl().list()
+const graphqls = await client.graphql.list()
 console.log(graphqls.data)
 ```
 
@@ -71,7 +71,7 @@ The API exposes one entity:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **GraphQl** |  | `/graphql` |
+| **GraphQl** | The GraphQl entity (create, list). | `/graphql` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -85,11 +85,11 @@ import os
 from fussyapidocumentation_sdk import FussyApiDocumentationSDK
 
 client = FussyApiDocumentationSDK({
-    "apikey": os.environ.get("FUSSY-API-DOCUMENTATION_APIKEY"),
+    "apikey": os.environ.get("FUSSY_API_DOCUMENTATION_APIKEY"),
 })
 
 # List all graphqls
-graphqls, err = client.GraphQl().list()
+graphqls = client.graphql.list()
 print(graphqls)
 ```
 
@@ -100,11 +100,11 @@ print(graphqls)
 require_once 'fussyapidocumentation_sdk.php';
 
 $client = new FussyApiDocumentationSDK([
-    "apikey" => getenv("FUSSY-API-DOCUMENTATION_APIKEY"),
+    "apikey" => getenv("FUSSY_API_DOCUMENTATION_APIKEY"),
 ]);
 
-// List all graphqls
-[$graphqls, $err] = $client->GraphQl()->list();
+// List all graphqls (throws on error)
+$graphqls = $client->graphql()->list();
 print_r($graphqls);
 ```
 
@@ -114,7 +114,7 @@ print_r($graphqls);
 import sdk "github.com/voxgig-sdk/fussy-api-documentation-sdk/go"
 
 client := sdk.NewFussyApiDocumentationSDK(map[string]any{
-    "apikey": os.Getenv("FUSSY-API-DOCUMENTATION_APIKEY"),
+    "apikey": os.Getenv("FUSSY_API_DOCUMENTATION_APIKEY"),
 })
 
 // List all graphqls
@@ -128,11 +128,11 @@ fmt.Println(graphqls)
 require_relative "FussyApiDocumentation_sdk"
 
 client = FussyApiDocumentationSDK.new({
-  "apikey" => ENV["FUSSY-API-DOCUMENTATION_APIKEY"],
+  "apikey" => ENV["FUSSY_API_DOCUMENTATION_APIKEY"],
 })
 
 # List all graphqls
-graphqls, err = client.GraphQl().list
+graphqls = client.graphql.list
 puts graphqls
 ```
 
@@ -142,11 +142,11 @@ puts graphqls
 local sdk = require("fussy-api-documentation_sdk")
 
 local client = sdk.new({
-  apikey = os.getenv("FUSSY-API-DOCUMENTATION_APIKEY"),
+  apikey = os.getenv("FUSSY_API_DOCUMENTATION_APIKEY"),
 })
 
 -- List all graphqls
-local graphqls, err = client:GraphQl():list()
+local graphqls, err = client:graphql():list()
 print(graphqls)
 ```
 
@@ -159,7 +159,7 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = FussyApiDocumentationSDK.test()
-const result = await client.GraphQl().load({ id: 'test01' })
+const result = await client.graphql.load({ id: 'test01' })
 // result.ok === true, result.data contains mock data
 ```
 
@@ -167,14 +167,14 @@ const result = await client.GraphQl().load({ id: 'test01' })
 
 ```python
 client = FussyApiDocumentationSDK.test()
-result, err = client.GraphQl().load({"id": "test01"})
+result = client.graphql.load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
 $client = FussyApiDocumentationSDK::test();
-[$result, $err] = $client->GraphQl()->load(["id" => "test01"]);
+$result = $client->graphql()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -190,14 +190,14 @@ result, err := client.GraphQl(nil).Load(
 
 ```ruby
 client = FussyApiDocumentationSDK.test
-result, err = client.GraphQl().load({ "id" => "test01" })
+result = client.graphql.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:GraphQl():load({ id = "test01" })
+local result, err = client:graphql():load({ id = "test01" })
 ```
 
 ## How it works
@@ -250,7 +250,7 @@ console.log(result.data)
 
 **Python:**
 ```python
-result, err = client.direct({
+result = client.direct({
     "path": "/api/resource/{id}",
     "method": "GET",
     "params": {"id": "example"},
@@ -259,7 +259,7 @@ result, err = client.direct({
 
 **PHP:**
 ```php
-[$result, $err] = $client->direct([
+$result = $client->direct([
     "path" => "/api/resource/{id}",
     "method" => "GET",
     "params" => ["id" => "example"],
@@ -277,7 +277,7 @@ result, err := client.Direct(map[string]any{
 
 **Ruby:**
 ```ruby
-result, err = client.direct({
+result = client.direct({
   "path" => "/api/resource/{id}",
   "method" => "GET",
   "params" => { "id" => "example" },

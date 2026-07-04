@@ -244,6 +244,19 @@ end
 
 
 
+-- Idiomatic facade: client:graph_ql():list() / client:graph_ql():load({ id = ... })
+function FussyApiDocumentationSDK:graph_ql(data)
+  local EntityMod = require("entity.graph_ql_entity")
+  if data == nil then
+    if self._graph_ql == nil then
+      self._graph_ql = EntityMod.new(self, nil)
+    end
+    return self._graph_ql
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:graph_ql() instead.
 function FussyApiDocumentationSDK:GraphQl(data)
   local EntityMod = require("entity.graph_ql_entity")
   return EntityMod.new(self, data)

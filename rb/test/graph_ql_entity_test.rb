@@ -36,16 +36,14 @@ class GraphQlEntityTest < Minitest::Test
     graph_ql_ref01_data = Helpers.to_map(Vs.getprop(
       Vs.getpath(setup[:data], "new.graph_ql"), "graph_ql_ref01"))
 
-    graph_ql_ref01_data_result, err = graph_ql_ref01_ent.create(graph_ql_ref01_data, nil)
-    assert_nil err
+    graph_ql_ref01_data_result = graph_ql_ref01_ent.create(graph_ql_ref01_data, nil)
     graph_ql_ref01_data = Helpers.to_map(graph_ql_ref01_data_result)
     assert !graph_ql_ref01_data.nil?
 
     # LIST
     graph_ql_ref01_match = {}
 
-    graph_ql_ref01_list_result, err = graph_ql_ref01_ent.list(graph_ql_ref01_match, nil)
-    assert_nil err
+    graph_ql_ref01_list_result = graph_ql_ref01_ent.list(graph_ql_ref01_match, nil)
     assert graph_ql_ref01_list_result.is_a?(Array)
 
     found_item = Vs.select(

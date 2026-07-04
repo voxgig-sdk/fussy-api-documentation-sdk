@@ -84,7 +84,7 @@ same parameters as `direct()`.
 ## GraphQlEntity
 
 ```lua
-local graph_ql = client:GraphQl(nil)
+local graph_ql = client:graph_ql(nil)
 ```
 
 ### Fields
@@ -105,7 +105,7 @@ local graph_ql = client:GraphQl(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:GraphQl():create({
+local result, err = client:graph_ql():create({
   query = --[[ `$STRING` ]],
 })
 ```
@@ -115,7 +115,7 @@ local result, err = client:GraphQl():create({
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:GraphQl():list()
+local results, err = client:graph_ql():list()
 ```
 
 ### Common Methods

@@ -44,16 +44,13 @@ class TestGraphQlEntity:
         graph_ql_ref01_data = helpers.to_map(vs.getprop(
             vs.getpath(setup["data"], "new.graph_ql"), "graph_ql_ref01"))
 
-        graph_ql_ref01_data_result, err = graph_ql_ref01_ent.create(graph_ql_ref01_data, None)
-        assert err is None
-        graph_ql_ref01_data = helpers.to_map(graph_ql_ref01_data_result)
+        graph_ql_ref01_data = helpers.to_map(graph_ql_ref01_ent.create(graph_ql_ref01_data, None))
         assert graph_ql_ref01_data is not None
 
         # LIST
         graph_ql_ref01_match = {}
 
-        graph_ql_ref01_list_result, err = graph_ql_ref01_ent.list(graph_ql_ref01_match, None)
-        assert err is None
+        graph_ql_ref01_list_result = graph_ql_ref01_ent.list(graph_ql_ref01_match, None)
         assert isinstance(graph_ql_ref01_list_result, list)
 
         found_item = vs.select(

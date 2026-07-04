@@ -9,9 +9,12 @@ The TypeScript SDK for the FussyApiDocumentation API — a type-safe, entity-ori
 
 
 ## Install
-```bash
-npm install @voxgig-sdk/fussy-api-documentation
-```
+This package is not yet published to npm. Install it from the GitHub
+release tag (`ts/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/fussy-api-documentation-sdk/releases](https://github.com/voxgig-sdk/fussy-api-documentation-sdk/releases)
+
+
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
@@ -20,17 +23,17 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { FussyApiDocumentationSDK } from 'fussy-api-documentation'
+import { FussyApiDocumentationSDK } from '@voxgig-sdk/fussy-api-documentation'
 
 const client = new FussyApiDocumentationSDK({
-  apikey: process.env.FUSSY-API-DOCUMENTATION_APIKEY,
+  apikey: process.env.FUSSY_API_DOCUMENTATION_APIKEY,
 })
 ```
 
 ### 2. List graphqls
 
 ```ts
-const result = await client.GraphQl().list()
+const result = await client.graphql.list()
 
 if (result.ok) {
   for (const item of result.data) {
@@ -43,7 +46,7 @@ if (result.ok) {
 
 ```ts
 // Create
-const created = await client.GraphQl().create({
+const created = await client.graphql.create({
   name: 'Example',
 })
 
@@ -91,7 +94,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = FussyApiDocumentationSDK.test()
 
-const result = await client.Planet().load({ id: 'test01' })
+const result = await client.graphql.load({ id: 'test01' })
 // result.ok === true
 // result.data contains mock response data
 ```
@@ -108,7 +111,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Planet()
+const entity = client.graphql
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -145,8 +148,8 @@ const client = new FussyApiDocumentationSDK({
 Create a `.env.local` file at the project root:
 
 ```
-FUSSY-API-DOCUMENTATION_TEST_LIVE=TRUE
-FUSSY-API-DOCUMENTATION_APIKEY=<your-key>
+FUSSY_API_DOCUMENTATION_TEST_LIVE=TRUE
+FUSSY_API_DOCUMENTATION_APIKEY=<your-key>
 ```
 
 Then run:
@@ -283,7 +286,7 @@ API path: `/graphql`
 
 ### GraphQl
 
-Create an instance: `const graph_ql = client.GraphQl()`
+Create an instance: `const graph_ql = client.graph_ql`
 
 #### Operations
 
@@ -306,13 +309,13 @@ Create an instance: `const graph_ql = client.GraphQl()`
 #### Example: List
 
 ```ts
-const graph_qls = await client.GraphQl().list()
+const graph_qls = await client.graph_ql.list()
 ```
 
 #### Example: Create
 
 ```ts
-const graph_ql = await client.GraphQl().create({
+const graph_ql = await client.graph_ql.create({
   query: /* `$STRING` */,
 })
 ```
@@ -375,7 +378,7 @@ fussy-api-documentation/
 Import the SDK from the package root:
 
 ```ts
-import { FussyApiDocumentationSDK } from 'fussy-api-documentation'
+import { FussyApiDocumentationSDK } from '@voxgig-sdk/fussy-api-documentation'
 ```
 
 ### Entity state
@@ -385,11 +388,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const moon = client.Moon()
-await moon.load({ planet_id: 'earth', id: 'luna' })
+const graphql = client.graphql
+await graphql.load({ id: "example_id" })
 
-// moon.data() now returns the loaded moon data
-// moon.match() returns { planet_id: 'earth', id: 'luna' }
+// graphql.data() now returns the loaded graphql data
+// graphql.match() returns { id: "example_id" }
 ```
 
 Call `make()` to create a fresh instance with the same configuration

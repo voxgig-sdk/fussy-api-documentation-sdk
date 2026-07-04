@@ -2,6 +2,8 @@
 
 import { GraphQlEntity } from './entity/GraphQlEntity'
 
+export type * from './FussyApiDocumentationTypes'
+
 
 import { inspect } from 'node:util'
 
@@ -202,6 +204,14 @@ class FussyApiDocumentationSDK {
 
 
 
+  _graph_ql?: GraphQlEntity
+
+  // Idiomatic facade: `client.graph_ql.list()` / `client.graph_ql.load({ id })`.
+  get graph_ql(): GraphQlEntity {
+    return (this._graph_ql ??= new GraphQlEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.graph_ql` instead. */
   GraphQl(data?: any) {
     const self = this
     return new GraphQlEntity(self,data)
