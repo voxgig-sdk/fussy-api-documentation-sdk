@@ -23,7 +23,7 @@ class GraphQl
     public ?array $variable = null;
 }
 
-/** Match filter for GraphQl#list (any subset of GraphQl fields). */
+/** Request payload for GraphQl#list. */
 class GraphQlListMatch
 {
     public ?array $data = null;
@@ -34,14 +34,14 @@ class GraphQlListMatch
     public ?array $variable = null;
 }
 
-/** Match filter for GraphQl#create (any subset of GraphQl fields). */
+/** Request payload for GraphQl#create. */
 class GraphQlCreateData
 {
     public ?array $data = null;
     public ?array $error = null;
     public ?string $message = null;
     public ?string $operation_name = null;
-    public ?string $query = null;
+    public string $query;
     public ?array $variable = null;
 }
 

@@ -37,7 +37,7 @@ GraphQl = Struct.new(
   keyword_init: true
 )
 
-# Match filter for GraphQl#list (any subset of GraphQl fields).
+# Request payload for GraphQl#list.
 #
 # @!attribute [rw] data
 #   @return [Hash, nil]
@@ -66,7 +66,7 @@ GraphQlListMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for GraphQl#create (any subset of GraphQl fields).
+# Request payload for GraphQl#create.
 #
 # @!attribute [rw] data
 #   @return [Hash, nil]
@@ -81,7 +81,7 @@ GraphQlListMatch = Struct.new(
 #   @return [String, nil]
 #
 # @!attribute [rw] query
-#   @return [String, nil]
+#   @return [String]
 #
 # @!attribute [rw] variable
 #   @return [Hash, nil]

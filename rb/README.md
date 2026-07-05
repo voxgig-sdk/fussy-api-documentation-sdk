@@ -4,6 +4,8 @@
 
 The Ruby SDK for the FussyApiDocumentation API — an entity-oriented client using idiomatic Ruby conventions.
 
+The SDK exposes the API as capitalised, semantic **Entities** — for example `client.GraphQl` — with named operations (`list`/`create`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -37,7 +39,7 @@ begin
   # list returns an Array of GraphQl records — iterate directly.
   graphqls = client.GraphQl.list
   graphqls.each do |item|
-    puts "#{item["id"]} #{item["name"]}"
+    puts "#{item["data"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -48,8 +50,35 @@ end
 
 ```ruby
 # create returns the bare created GraphQl record.
-created = client.GraphQl.create({ "name" => "Example" })
+created = client.GraphQl.create({ "query" => "example" })
 
+```
+
+
+## Error handling
+
+Entity operations raise on failure, so rescue them:
+
+```ruby
+begin
+  graphqls = client.GraphQl.list()
+rescue => err
+  warn "list failed: #{err}"
+end
+```
+
+`direct` does **not** raise — it returns the result hash. Branch on
+`ok`; on failure `status` holds the HTTP status (for error responses) and
+`err` holds a transport error, so read both defensively:
+
+```ruby
+result = client.direct({
+  "path" => "/api/resource/{id}",
+  "method" => "GET",
+  "params" => { "id" => "example_id" },
+})
+
+warn "request failed: #{result["err"] || "HTTP #{result["status"]}"}" unless result["ok"]
 ```
 
 
@@ -70,7 +99,9 @@ if result["ok"]
   puts result["status"]  # 200
   puts result["data"]    # response body
 else
-  warn result["err"]
+  # On an HTTP error status there is no err (only a transport failure sets
+  # it), so fall back to the status code.
+  warn(result["err"] || "HTTP #{result["status"]}")
 end
 ```
 
@@ -93,16 +124,13 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required. Seed fixture
-data via the `entity` option so offline calls resolve without a live server:
+Create a mock client for unit testing — no server required:
 
 ```ruby
-client = FussyApiDocumentationSDK.test({
-  "entity" => { "graphql" => { "test01" => { "id" => "test01" } } },
-})
+client = FussyApiDocumentationSDK.test
 
-# load returns the bare mock record (raises on error).
-graphql = client.GraphQl.load({ "id" => "test01" })
+# Entity ops return the bare mock record (raises on error).
+graphql = client.GraphQl.list()
 puts graphql
 ```
 
@@ -189,11 +217,8 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
-| `list` | `(reqmatch, ctrl) -> Array` | List entities matching the criteria. Raises on error. |
+| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all). Raises on error. |
 | `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
-| `update` | `(reqdata, ctrl) -> any` | Update an existing entity. Raises on error. |
-| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
 | `data_get` | `() -> Hash` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> Hash` | Get entity match criteria. |
@@ -255,12 +280,12 @@ Create an instance: `graph_ql = client.GraphQl`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `data` | ``$OBJECT`` |  |
-| `error` | ``$ARRAY`` |  |
-| `message` | ``$STRING`` |  |
-| `operation_name` | ``$STRING`` |  |
-| `query` | ``$STRING`` |  |
-| `variable` | ``$OBJECT`` |  |
+| `data` | `Hash` |  |
+| `error` | `Array` |  |
+| `message` | `String` |  |
+| `operation_name` | `String` |  |
+| `query` | `String` |  |
+| `variable` | `Hash` |  |
 
 #### Example: List
 
@@ -273,17 +298,21 @@ graph_qls = client.GraphQl.list
 
 ```ruby
 graph_ql = client.GraphQl.create({
-  "query" => nil, # `$STRING`
+  "query" => "example", # String
 })
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -300,8 +329,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as a second return value.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -345,14 +375,14 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
 graphql = client.GraphQl
-graphql.load({ "id" => "example_id" })
+graphql.list()
 
-# graphql.data_get now returns the loaded graphql data
+# graphql.data_get now returns the graphql data from the last list
 # graphql.match_get returns the last match criteria
 ```
 

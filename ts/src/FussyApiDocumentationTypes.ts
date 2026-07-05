@@ -14,7 +14,21 @@ export interface GraphQl {
   variable?: Record<string, any>
 }
 
-export type GraphQlListMatch = Partial<GraphQl>
+export interface GraphQlListMatch {
+  data?: Record<string, any>
+  error?: any[]
+  message?: string
+  operation_name?: string
+  query?: string
+  variable?: Record<string, any>
+}
 
-export type GraphQlCreateData = Partial<GraphQl>
+export interface GraphQlCreateData {
+  data?: Record<string, any>
+  error?: any[]
+  message?: string
+  operation_name?: string
+  query: string
+  variable?: Record<string, any>
+}
 

@@ -221,7 +221,7 @@ class FussyApiDocumentationSDK:
 
 
     def GraphQl(self, data=None) -> "GraphQlEntity":
-        """Entity factory: client.GraphQl().list({}) / client.GraphQl().load({"id": ...})."""
+        """Entity factory: client.GraphQl().list() / client.GraphQl().load({"id": ...})."""
         from entity.graph_ql_entity import GraphQlEntity
         return GraphQlEntity(self, data)
 

@@ -18,8 +18,7 @@ type GraphQl struct {
 	Variable *map[string]any `json:"variable,omitempty"`
 }
 
-// GraphQlListMatch mirrors the graph_ql fields as an all-optional match
-// filter (Go analog of Partial<GraphQl>).
+// GraphQlListMatch is the typed request payload for GraphQl.ListTyped.
 type GraphQlListMatch struct {
 	Data *map[string]any `json:"data,omitempty"`
 	Error *[]any `json:"error,omitempty"`
@@ -29,14 +28,13 @@ type GraphQlListMatch struct {
 	Variable *map[string]any `json:"variable,omitempty"`
 }
 
-// GraphQlCreateData mirrors the graph_ql fields as an all-optional match
-// filter (Go analog of Partial<GraphQl>).
+// GraphQlCreateData is the typed request payload for GraphQl.CreateTyped.
 type GraphQlCreateData struct {
 	Data *map[string]any `json:"data,omitempty"`
 	Error *[]any `json:"error,omitempty"`
 	Message *string `json:"message,omitempty"`
 	OperationName *string `json:"operation_name,omitempty"`
-	Query *string `json:"query,omitempty"`
+	Query string `json:"query"`
 	Variable *map[string]any `json:"variable,omitempty"`
 }
 

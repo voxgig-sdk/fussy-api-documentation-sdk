@@ -117,12 +117,12 @@ const graph_ql = client.GraphQl()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$OBJECT`` | No |  |
-| `error` | ``$ARRAY`` | No |  |
-| `message` | ``$STRING`` | No |  |
-| `operation_name` | ``$STRING`` | No |  |
-| `query` | ``$STRING`` | Yes |  |
-| `variable` | ``$OBJECT`` | No |  |
+| `data` | `Record<string, any>` | No |  |
+| `error` | `any[]` | No |  |
+| `message` | `string` | No |  |
+| `operation_name` | `string` | No |  |
+| `query` | `string` | Yes |  |
+| `variable` | `Record<string, any>` | No |  |
 
 ### Operations
 
@@ -132,7 +132,7 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.GraphQl().create({
-  query: /* `$STRING` */,
+  query: /* string */,
 })
 ```
 

@@ -15,8 +15,20 @@
 ---@field variable? table
 
 ---@class GraphQlListMatch
+---@field data? table
+---@field error? table
+---@field message? string
+---@field operation_name? string
+---@field query? string
+---@field variable? table
 
 ---@class GraphQlCreateData
+---@field data? table
+---@field error? table
+---@field message? string
+---@field operation_name? string
+---@field query string
+---@field variable? table
 
 local M = {}
 

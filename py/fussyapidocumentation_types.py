@@ -37,10 +37,13 @@ class GraphQlListMatch(TypedDict, total=False):
     variable: dict
 
 
-class GraphQlCreateData(TypedDict, total=False):
+class GraphQlCreateDataRequired(TypedDict):
+    query: str
+
+
+class GraphQlCreateData(GraphQlCreateDataRequired, total=False):
     data: dict
     error: list
     message: str
     operation_name: str
-    query: str
     variable: dict

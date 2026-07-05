@@ -98,12 +98,12 @@ graph_ql := client.GraphQl(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$OBJECT`` | No |  |
-| `error` | ``$ARRAY`` | No |  |
-| `message` | ``$STRING`` | No |  |
-| `operation_name` | ``$STRING`` | No |  |
-| `query` | ``$STRING`` | Yes |  |
-| `variable` | ``$OBJECT`` | No |  |
+| `data` | `map[string]any` | No |  |
+| `error` | `[]any` | No |  |
+| `message` | `string` | No |  |
+| `operation_name` | `string` | No |  |
+| `query` | `string` | Yes |  |
+| `variable` | `map[string]any` | No |  |
 
 ### Operations
 
@@ -113,7 +113,7 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.GraphQl(nil).Create(map[string]any{
-    "query": /* `$STRING` */,
+    "query": /* string */,
 }, nil)
 ```
 

@@ -8,7 +8,7 @@ Complete API reference for the FussyApiDocumentation Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'fussy-api-documentation_sdk'
+require_relative 'FussyApiDocumentation_sdk'
 
 client = FussyApiDocumentationSDK.new(options)
 ```
@@ -94,12 +94,12 @@ graph_ql = client.GraphQl
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$OBJECT`` | No |  |
-| `error` | ``$ARRAY`` | No |  |
-| `message` | ``$STRING`` | No |  |
-| `operation_name` | ``$STRING`` | No |  |
-| `query` | ``$STRING`` | Yes |  |
-| `variable` | ``$OBJECT`` | No |  |
+| `data` | `Hash` | No |  |
+| `error` | `Array` | No |  |
+| `message` | `String` | No |  |
+| `operation_name` | `String` | No |  |
+| `query` | `String` | Yes |  |
+| `variable` | `Hash` | No |  |
 
 ### Operations
 
@@ -109,16 +109,16 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.GraphQl.create({
-  "query" => # `$STRING`,
+  "query" => "example", # String
 })
 ```
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.GraphQl.list(nil)
+results = client.GraphQl.list
 ```
 
 ### Common Methods

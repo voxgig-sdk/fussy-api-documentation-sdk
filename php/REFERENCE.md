@@ -8,7 +8,7 @@ Complete API reference for the FussyApiDocumentation PHP SDK.
 ### Constructor
 
 ```php
-require_once __DIR__ . '/fussy-api-documentation_sdk.php';
+require_once __DIR__ . '/fussyapidocumentation_sdk.php';
 
 $client = new FussyApiDocumentationSDK($options);
 ```
@@ -46,11 +46,11 @@ $client = FussyApiDocumentationSDK::test();
 
 Create a new `GraphQlEntity` instance. Pass `null` for no initial data.
 
-#### `optionsMap(): array`
+#### `options_map(): array`
 
 Return a deep copy of the current SDK options.
 
-#### `getUtility(): ProjectNameUtility`
+#### `get_utility(): FussyApiDocumentationUtility`
 
 Return a copy of the SDK utility object.
 
@@ -93,12 +93,12 @@ $graph_ql = $client->GraphQl();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$OBJECT`` | No |  |
-| `error` | ``$ARRAY`` | No |  |
-| `message` | ``$STRING`` | No |  |
-| `operation_name` | ``$STRING`` | No |  |
-| `query` | ``$STRING`` | Yes |  |
-| `variable` | ``$OBJECT`` | No |  |
+| `data` | `array` | No |  |
+| `error` | `array` | No |  |
+| `message` | `string` | No |  |
+| `operation_name` | `string` | No |  |
+| `query` | `string` | Yes |  |
+| `variable` | `array` | No |  |
 
 ### Operations
 
@@ -108,33 +108,33 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->GraphQl()->create([
-  "query" => /* `$STRING` */,
+  "query" => null, // string
 ]);
 ```
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->GraphQl()->list([]);
+$results = $client->GraphQl()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -143,7 +143,7 @@ Set the entity match criteria.
 Create a new `GraphQlEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 

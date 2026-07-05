@@ -8,7 +8,7 @@ Complete API reference for the FussyApiDocumentation Python SDK.
 ### Constructor
 
 ```python
-from fussy-api-documentation_sdk import FussyApiDocumentationSDK
+from fussyapidocumentation_sdk import FussyApiDocumentationSDK
 
 client = FussyApiDocumentationSDK(options)
 ```
@@ -88,12 +88,12 @@ graph_ql = client.GraphQl()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$OBJECT`` | No |  |
-| `error` | ``$ARRAY`` | No |  |
-| `message` | ``$STRING`` | No |  |
-| `operation_name` | ``$STRING`` | No |  |
-| `query` | ``$STRING`` | Yes |  |
-| `variable` | ``$OBJECT`` | No |  |
+| `data` | `dict` | No |  |
+| `error` | `list` | No |  |
+| `message` | `str` | No |  |
+| `operation_name` | `str` | No |  |
+| `query` | `str` | Yes |  |
+| `variable` | `dict` | No |  |
 
 ### Operations
 
@@ -103,16 +103,16 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.GraphQl().create({
-    "query": ...,  # `$STRING`
+    "query": "example",  # str
 })
 ```
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.GraphQl().list({})
+results = client.GraphQl().list()
 for graph_ql in results:
     print(graph_ql)
 ```
