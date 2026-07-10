@@ -91,7 +91,8 @@ same parameters as `Direct()`.
 ## GraphQlEntity
 
 ```go
-graph_ql := client.GraphQl(nil)
+graphQl := client.GraphQl(nil)
+fmt.Println(graphQl.GetName()) // "graph_ql"
 ```
 
 ### Fields
@@ -107,22 +108,30 @@ graph_ql := client.GraphQl(nil)
 
 ### Operations
 
-#### `Create(reqdata, ctrl map[string]any) (any, error)`
-
-Create a new entity with the given data.
-
-```go
-result, err := client.GraphQl(nil).Create(map[string]any{
-    "query": /* string */,
-}, nil)
-```
-
 #### `List(reqmatch, ctrl map[string]any) (any, error)`
 
 List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.GraphQl(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
+```
+
+#### `Create(reqdata, ctrl map[string]any) (any, error)`
+
+Create a new entity with the given data.
+
+```go
+result, err := client.GraphQl(nil).Create(map[string]any{
+    "query": "example_query",
+}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods

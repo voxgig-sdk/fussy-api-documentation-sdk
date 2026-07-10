@@ -57,7 +57,7 @@ except Exception as err:
 
 ```python
 # Create — returns the bare created record (a dict)
-created = client.GraphQl().create({"query": "example"})
+created = client.GraphQl().create({"query": "example_query"})
 
 ```
 
@@ -304,7 +304,7 @@ graph_qls = client.GraphQl().list()
 
 ```python
 graph_ql = client.GraphQl().create({
-    "query": "example",  # str
+    "query": "example_query",  # str
 })
 ```
 

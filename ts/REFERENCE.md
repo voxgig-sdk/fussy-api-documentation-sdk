@@ -132,7 +132,7 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.GraphQl().create({
-  query: /* string */,
+  query: 'example_query',
 })
 ```
 

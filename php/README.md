@@ -51,7 +51,7 @@ try {
 
 ```php
 // create() returns the bare created GraphQl record.
-$created = $client->GraphQl()->create(["query" => "example"]);
+$created = $client->GraphQl()->create(["query" => "example_query"]);
 
 ```
 

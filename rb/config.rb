@@ -16,7 +16,7 @@ module FussyApiDocumentationConfig
       "options" => {
         "base" => "https://api.fussy.fun",
         "auth" => {
-          "prefix" => "Bearer",
+          "prefix" => "",
         },
         "headers" => {
           "content-type" => "application/json",

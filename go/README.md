@@ -53,17 +53,17 @@ func main() {
         "apikey": os.Getenv("FUSSY_API_DOCUMENTATION_APIKEY"),
     })
 
-    // List graphql records — the value is the array of records itself.
-    graphqls, err := client.GraphQl(nil).List(nil, nil)
+    // List graphQl records — the value is the array of records itself.
+    graphQls, err := client.GraphQl(nil).List(nil, nil)
     if err != nil {
         panic(err)
     }
-    for _, item := range graphqls.([]any) {
+    for _, item := range graphQls.([]any) {
         fmt.Println(item)
     }
 
-    // Create a graphql.
-    created, err := client.GraphQl(nil).Create(map[string]any{"query": "example"}, nil)
+    // Create a graphQl.
+    created, err := client.GraphQl(nil).Create(map[string]any{"query": "example_query"}, nil)
     if err != nil {
         panic(err)
     }
@@ -147,13 +147,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-graphql, err := client.GraphQl(nil).List(
+graphQl, err := client.GraphQl(nil).List(
     nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(graphql) // the returned mock data
+fmt.Println(graphQl) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -261,9 +261,9 @@ Check `err` first, then use the value directly (or the typed
 `...Typed` variants, which return the entity's model struct and a typed
 slice):
 
-    graphql, err := client.GraphQl(nil).List(map[string]any{/* fields */}, nil)
+    graphQl, err := client.GraphQl(nil).List(map[string]any{/* fields */}, nil)
     if err != nil { /* handle */ }
-    // graphql is the returned record
+    // graphQl is the returned record
 
 Only `Direct()` returns a response envelope — a `map[string]any` with
 `"ok"`, `"status"`, `"headers"`, and `"data"` keys.
@@ -292,14 +292,14 @@ API path: `/graphql`
 
 ### GraphQl
 
-Create an instance: `graph_ql := client.GraphQl(nil)`
+Create an instance: `graphQl := client.GraphQl(nil)`
 
 #### Operations
 
 | Method | Description |
 | --- | --- |
-| `Create(data, ctrl)` | Create a new entity with the given data. |
 | `List(match, ctrl)` | List entities matching the criteria. |
+| `Create(data, ctrl)` | Create a new entity with the given data. |
 
 #### Fields
 
@@ -315,19 +315,23 @@ Create an instance: `graph_ql := client.GraphQl(nil)`
 #### Example: List
 
 ```go
-graph_qls, err := client.GraphQl(nil).List(nil, nil)
+graphQls, err := client.GraphQl(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(graph_qls) // the array of records
+fmt.Println(graphQls) // the array of records
 ```
 
 #### Example: Create
 
 ```go
 result, err := client.GraphQl(nil).Create(map[string]any{
-    "query": /* string */,
+    "query": "example_query",
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 

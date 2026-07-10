@@ -53,7 +53,7 @@ end
 
 ```lua
 -- Create
-local created, err = client:GraphQl():create({ query = "example" })
+local created, err = client:GraphQl():create({ query = "example_query" })
 if err then error(err) end
 
 ```
@@ -294,7 +294,7 @@ local graph_qls, err = client:GraphQl():list()
 
 ```lua
 local graph_ql, err = client:GraphQl():create({
-  query = nil, -- string
+  query = "example_query", -- string
 })
 ```
 

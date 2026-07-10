@@ -50,7 +50,7 @@ end
 
 ```ruby
 # create returns the bare created GraphQl record.
-created = client.GraphQl.create({ "query" => "example" })
+created = client.GraphQl.create({ "query" => "example_query" })
 
 ```
 
@@ -298,7 +298,7 @@ graph_qls = client.GraphQl.list
 
 ```ruby
 graph_ql = client.GraphQl.create({
-  "query" => "example", # String
+  "query" => "example_query", # String
 })
 ```
 

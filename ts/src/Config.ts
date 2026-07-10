@@ -39,7 +39,7 @@ class Config {
     base: 'https://api.fussy.fun',
 
     auth: {
-      prefix: 'Bearer',
+      prefix: '',
     },
 
     headers: {

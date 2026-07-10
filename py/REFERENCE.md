@@ -103,7 +103,7 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.GraphQl().create({
-    "query": "example",  # str
+    "query": "example_query",  # str
 })
 ```
 

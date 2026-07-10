@@ -350,7 +350,7 @@ const graph_qls = await client.GraphQl().list()
 
 ```ts
 const graph_ql = await client.GraphQl().create({
-  query: /* string */,
+  query: 'example_query',
 })
 ```
 
