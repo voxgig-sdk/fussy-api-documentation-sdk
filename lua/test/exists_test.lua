@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- FussyApiDocumentation SDK exists test
 
 local sdk = require("fussy-api-documentation_sdk")
 

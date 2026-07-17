@@ -1,4 +1,4 @@
--- ProjectName SDK configuration
+-- FussyApiDocumentation SDK configuration
 
 local function make_config()
   return {
