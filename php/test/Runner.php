@@ -43,8 +43,8 @@ class FussyApiDocumentationTestRunner
 
     public static function env_override(array $m): array
     {
-        $live = self::getenv('FUSSYAPIDOCUMENTATION_TEST_LIVE');
-        $override = self::getenv('FUSSYAPIDOCUMENTATION_TEST_OVERRIDE');
+        $live = self::getenv('FUSSY_API_DOCUMENTATION_TEST_LIVE');
+        $override = self::getenv('FUSSY_API_DOCUMENTATION_TEST_OVERRIDE');
 
         if ($live === 'TRUE' || $override === 'TRUE') {
             foreach (array_keys($m) as $key) {
@@ -63,9 +63,9 @@ class FussyApiDocumentationTestRunner
             }
         }
 
-        $explain = self::getenv('FUSSYAPIDOCUMENTATION_TEST_EXPLAIN');
+        $explain = self::getenv('FUSSY_API_DOCUMENTATION_TEST_EXPLAIN');
         if ($explain !== null && $explain !== '') {
-            $m['FUSSYAPIDOCUMENTATION_TEST_EXPLAIN'] = $explain;
+            $m['FUSSY_API_DOCUMENTATION_TEST_EXPLAIN'] = $explain;
         }
 
         return $m;

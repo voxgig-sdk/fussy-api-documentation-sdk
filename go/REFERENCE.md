@@ -100,11 +100,11 @@ fmt.Println(graphQl.GetName()) // "graph_ql"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `data` | `map[string]any` | No |  |
-| `error` | `[]any` | No |  |
+| `errors` | `[]any` | No |  |
 | `message` | `string` | No |  |
-| `operation_name` | `string` | No |  |
+| `operationName` | `string` | No |  |
 | `query` | `string` | Yes |  |
-| `variable` | `map[string]any` | No |  |
+| `variables` | `map[string]any` | No |  |
 
 ### Operations
 

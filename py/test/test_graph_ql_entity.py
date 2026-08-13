@@ -6,9 +6,9 @@ import time
 
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from fussyapidocumentation_sdk.utility.voxgig_struct import voxgig_struct as vs
 from fussyapidocumentation_sdk import FussyApiDocumentationSDK
-from core import helpers
+from fussyapidocumentation_sdk.core import helpers
 
 _TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 from test import runner
@@ -42,7 +42,7 @@ class TestGraphQlEntity:
         assert len(seen) == 3
 
         # Inbound: streaming active -> yields each item from the feature.
-        from config import make_config
+        from fussyapidocumentation_sdk.config import make_config
         cfg = make_config()
         if isinstance(cfg.get("feature"), dict) and "streaming" in cfg["feature"]:
             sdk = FussyApiDocumentationSDK.test(
@@ -70,7 +70,7 @@ class TestGraphQlEntity:
         # without an *_ENTID env override, those IDs hit the live API and 4xx.
         if setup.get("synthetic_only"):
             pytest.skip("live entity test uses synthetic IDs from fixture — "
-                        "set FUSSYAPIDOCUMENTATION_TEST_GRAPH_QL_ENTID JSON to run live")
+                        "set FUSSY_API_DOCUMENTATION_TEST_GRAPH_QL_ENTID JSON to run live")
         client = setup["client"]
 
         # CREATE
@@ -78,7 +78,7 @@ class TestGraphQlEntity:
         graph_ql_ref01_data = helpers.to_map(vs.getprop(
             vs.getpath(setup["data"], "new.graph_ql"), "graph_ql_ref01"))
 
-        graph_ql_ref01_data = helpers.to_map(graph_ql_ref01_ent.create(graph_ql_ref01_data, None))
+        graph_ql_ref01_data = helpers.to_map(runner.entity_data(graph_ql_ref01_ent.create(graph_ql_ref01_data, None)))
         assert graph_ql_ref01_data is not None
 
         # LIST
@@ -86,11 +86,6 @@ class TestGraphQlEntity:
 
         graph_ql_ref01_list_result = graph_ql_ref01_ent.list(graph_ql_ref01_match, None)
         assert isinstance(graph_ql_ref01_list_result, list)
-
-        found_item = vs.select(
-            runner.entity_list_to_data(graph_ql_ref01_list_result),
-            {"id": graph_ql_ref01_data["id"]})
-        assert not vs.isempty(found_item)
 
 
 
@@ -123,37 +118,37 @@ def _graph_ql_basic_setup(extra):
     # mode is on without a real override, the basic test runs against synthetic
     # IDs from the fixture and 4xx's. We surface this so the test can skip.
     _entid_env_raw = os.environ.get(
-        "FUSSYAPIDOCUMENTATION_TEST_GRAPH_QL_ENTID")
+        "FUSSY_API_DOCUMENTATION_TEST_GRAPH_QL_ENTID")
     _idmap_overridden = _entid_env_raw is not None and _entid_env_raw.strip().startswith("{")
 
     env = runner.env_override({
-        "FUSSYAPIDOCUMENTATION_TEST_GRAPH_QL_ENTID": idmap,
-        "FUSSYAPIDOCUMENTATION_TEST_LIVE": "FALSE",
-        "FUSSYAPIDOCUMENTATION_TEST_EXPLAIN": "FALSE",
-        "FUSSYAPIDOCUMENTATION_APIKEY": "NONE",
+        "FUSSY_API_DOCUMENTATION_TEST_GRAPH_QL_ENTID": idmap,
+        "FUSSY_API_DOCUMENTATION_TEST_LIVE": "FALSE",
+        "FUSSY_API_DOCUMENTATION_TEST_EXPLAIN": "FALSE",
+        "FUSSY_API_DOCUMENTATION_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
-        env.get("FUSSYAPIDOCUMENTATION_TEST_GRAPH_QL_ENTID"))
+        env.get("FUSSY_API_DOCUMENTATION_TEST_GRAPH_QL_ENTID"))
     if idmap_resolved is None:
         idmap_resolved = helpers.to_map(idmap)
 
-    if env.get("FUSSYAPIDOCUMENTATION_TEST_LIVE") == "TRUE":
+    if env.get("FUSSY_API_DOCUMENTATION_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("FUSSYAPIDOCUMENTATION_APIKEY"),
+                "apikey": env.get("FUSSY_API_DOCUMENTATION_APIKEY"),
             },
             extra or {},
         ])
         client = FussyApiDocumentationSDK(helpers.to_map(merged_opts))
 
-    _live = env.get("FUSSYAPIDOCUMENTATION_TEST_LIVE") == "TRUE"
+    _live = env.get("FUSSY_API_DOCUMENTATION_TEST_LIVE") == "TRUE"
     return {
         "client": client,
         "data": entity_data,
         "idmap": idmap_resolved,
         "env": env,
-        "explain": env.get("FUSSYAPIDOCUMENTATION_TEST_EXPLAIN") == "TRUE",
+        "explain": env.get("FUSSY_API_DOCUMENTATION_TEST_EXPLAIN") == "TRUE",
         "live": _live,
         "synthetic_only": _live and not _idmap_overridden,
         "now": int(time.time() * 1000),

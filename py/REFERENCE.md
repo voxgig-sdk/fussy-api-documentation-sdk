@@ -89,11 +89,11 @@ graph_ql = client.GraphQl()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `data` | `dict` | No |  |
-| `error` | `list` | No |  |
+| `errors` | `list` | No |  |
 | `message` | `str` | No |  |
-| `operation_name` | `str` | No |  |
+| `operationName` | `str` | No |  |
 | `query` | `str` | Yes |  |
-| `variable` | `dict` | No |  |
+| `variables` | `dict` | No |  |
 
 ### Operations
 

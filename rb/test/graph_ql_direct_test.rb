@@ -60,16 +60,16 @@ def graph_ql_direct_setup(mockres)
   calls = []
 
   env = Runner.env_override({
-    "FUSSYAPIDOCUMENTATION_TEST_GRAPH_QL_ENTID" => {},
-    "FUSSYAPIDOCUMENTATION_TEST_LIVE" => "FALSE",
-    "FUSSYAPIDOCUMENTATION_APIKEY" => "NONE",
+    "FUSSY_API_DOCUMENTATION_TEST_GRAPH_QL_ENTID" => {},
+    "FUSSY_API_DOCUMENTATION_TEST_LIVE" => "FALSE",
+    "FUSSY_API_DOCUMENTATION_APIKEY" => "NONE",
   })
 
-  live = env["FUSSYAPIDOCUMENTATION_TEST_LIVE"] == "TRUE"
+  live = env["FUSSY_API_DOCUMENTATION_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {
-      "apikey" => env["FUSSYAPIDOCUMENTATION_APIKEY"],
+      "apikey" => env["FUSSY_API_DOCUMENTATION_APIKEY"],
     }
     client = FussyApiDocumentationSDK.new(merged_opts)
     return {

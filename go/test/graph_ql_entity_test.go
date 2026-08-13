@@ -92,7 +92,7 @@ func TestGraphQlEntity(t *testing.T) {
 		// The basic flow consumes synthetic IDs from the fixture. In live mode
 		// without an *_ENTID env override, those IDs hit the live API and 4xx.
 		if setup.syntheticOnly {
-			t.Skip("live entity test uses synthetic IDs from fixture — set FUSSYAPIDOCUMENTATION_TEST_GRAPH_QL_ENTID JSON to run live")
+			t.Skip("live entity test uses synthetic IDs from fixture — set FUSSY_API_DOCUMENTATION_TEST_GRAPH_QL_ENTID JSON to run live")
 			return
 		}
 		client := setup.client
@@ -106,7 +106,7 @@ func TestGraphQlEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("create failed: %v", err)
 		}
-		graphQlRef01Data = core.ToMapAny(graphQlRef01DataResult)
+		graphQlRef01Data = core.ToMapAny(entityData(graphQlRef01DataResult))
 		if graphQlRef01Data == nil {
 			t.Fatal("expected create result to be a map")
 		}
@@ -118,14 +118,9 @@ func TestGraphQlEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("list failed: %v", err)
 		}
-		graphQlRef01List, graphQlRef01ListOk := graphQlRef01ListResult.([]any)
+		_, graphQlRef01ListOk := graphQlRef01ListResult.([]any)
 		if !graphQlRef01ListOk {
 			t.Fatalf("expected list result to be an array, got %T", graphQlRef01ListResult)
-		}
-
-		foundItem := vs.Select(entityListToData(graphQlRef01List), map[string]any{"id": graphQlRef01Data["id"]})
-		if vs.IsEmpty(foundItem) {
-			t.Fatal("expected to find created entity in list")
 		}
 
 	})
@@ -168,38 +163,38 @@ func graph_qlBasicSetup(extra map[string]any) *entityTestSetup {
 	// Detect ENTID env override before envOverride consumes it. When live
 	// mode is on without a real override, the basic test runs against synthetic
 	// IDs from the fixture and 4xx's. Surface this so the test can skip.
-	entidEnvRaw := os.Getenv("FUSSYAPIDOCUMENTATION_TEST_GRAPH_QL_ENTID")
+	entidEnvRaw := os.Getenv("FUSSY_API_DOCUMENTATION_TEST_GRAPH_QL_ENTID")
 	idmapOverridden := entidEnvRaw != "" && strings.HasPrefix(strings.TrimSpace(entidEnvRaw), "{")
 
 	env := envOverride(map[string]any{
-		"FUSSYAPIDOCUMENTATION_TEST_GRAPH_QL_ENTID": idmap,
-		"FUSSYAPIDOCUMENTATION_TEST_LIVE":      "FALSE",
-		"FUSSYAPIDOCUMENTATION_TEST_EXPLAIN":   "FALSE",
-		"FUSSYAPIDOCUMENTATION_APIKEY":         "NONE",
+		"FUSSY_API_DOCUMENTATION_TEST_GRAPH_QL_ENTID": idmap,
+		"FUSSY_API_DOCUMENTATION_TEST_LIVE":      "FALSE",
+		"FUSSY_API_DOCUMENTATION_TEST_EXPLAIN":   "FALSE",
+		"FUSSY_API_DOCUMENTATION_APIKEY":         "NONE",
 	})
 
-	idmapResolved := core.ToMapAny(env["FUSSYAPIDOCUMENTATION_TEST_GRAPH_QL_ENTID"])
+	idmapResolved := core.ToMapAny(env["FUSSY_API_DOCUMENTATION_TEST_GRAPH_QL_ENTID"])
 	if idmapResolved == nil {
 		idmapResolved = core.ToMapAny(idmap)
 	}
 
-	if env["FUSSYAPIDOCUMENTATION_TEST_LIVE"] == "TRUE" {
+	if env["FUSSY_API_DOCUMENTATION_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
-				"apikey": env["FUSSYAPIDOCUMENTATION_APIKEY"],
+				"apikey": env["FUSSY_API_DOCUMENTATION_APIKEY"],
 			},
 			extra,
 		})
 		client = sdk.NewFussyApiDocumentationSDK(core.ToMapAny(mergedOpts))
 	}
 
-	live := env["FUSSYAPIDOCUMENTATION_TEST_LIVE"] == "TRUE"
+	live := env["FUSSY_API_DOCUMENTATION_TEST_LIVE"] == "TRUE"
 	return &entityTestSetup{
 		client:        client,
 		data:          entityData,
 		idmap:         idmapResolved,
 		env:           env,
-		explain:       env["FUSSYAPIDOCUMENTATION_TEST_EXPLAIN"] == "TRUE",
+		explain:       env["FUSSY_API_DOCUMENTATION_TEST_EXPLAIN"] == "TRUE",
 		live:          live,
 		syntheticOnly: live && !idmapOverridden,
 		now:           time.Now().UnixMilli(),

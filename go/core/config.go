@@ -36,7 +36,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "error",
+						"name": "errors",
 						"req": false,
 						"type": "`$ARRAY`",
 						"index$": 1,
@@ -50,7 +50,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "operation_name",
+						"name": "operationName",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 3,
@@ -64,7 +64,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "variable",
+						"name": "variables",
 						"req": false,
 						"type": "`$OBJECT`",
 						"index$": 5,
@@ -79,6 +79,7 @@ func MakeConfig() map[string]any {
 							map[string]any{
 								"active": true,
 								"args": map[string]any{},
+								"kind": "http",
 								"method": "POST",
 								"orig": "/graphql",
 								"parts": []any{
@@ -92,7 +93,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "create",
 					},
 					"list": map[string]any{
 						"input": "data",
@@ -128,6 +128,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/graphql",
 								"parts": []any{
@@ -147,7 +148,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "list",
 					},
 				},
 				"relations": map[string]any{

@@ -37,7 +37,9 @@ const client = new FussyApiDocumentationSDK({
 
 ### 2. List graphql records
 
-`list()` resolves to an array of GraphQl objects — iterate it directly:
+`list()` resolves to an array of GraphQl ENTITIES — every operation
+resolves to entities, not raw records. Iterate them directly, and call
+`.data()` on one for the record it holds:
 
 ```ts
 const graphqls = await client.GraphQl().list()
@@ -50,7 +52,7 @@ for (const graphql of graphqls) {
 ### 4. Create, update, and remove
 
 ```ts
-// Create — returns the created GraphQl
+// Create — returns the created GraphQl ENTITY (.data() for the record)
 const created = await client.GraphQl().create({
   query: 'example_query',
 })
@@ -132,7 +134,8 @@ Create a mock client for unit testing — no server required:
 const client = FussyApiDocumentationSDK.test()
 
 const graphql = await client.GraphQl().list()
-// graphql is a bare entity populated with mock response data
+// graphql is the entity, populated with mock response data
+// — call graphql.data() for the record itself
 console.log(graphql)
 ```
 
@@ -303,11 +306,11 @@ The `prepare()` method returns:
 | Field | Description |
 | --- | --- |
 | `data` |  |
-| `error` |  |
+| `errors` |  |
 | `message` |  |
-| `operation_name` |  |
+| `operationName` |  |
 | `query` |  |
-| `variable` |  |
+| `variables` |  |
 
 Operations: create, list.
 
@@ -334,11 +337,11 @@ Create an instance: `const graph_ql = client.GraphQl()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `data` | `Record<string, any>` |  |
-| `error` | `any[]` |  |
+| `errors` | `any[]` |  |
 | `message` | `string` |  |
-| `operation_name` | `string` |  |
+| `operationName` | `string` |  |
 | `query` | `string` |  |
-| `variable` | `Record<string, any>` |  |
+| `variables` | `Record<string, any>` |  |
 
 #### Example: List
 

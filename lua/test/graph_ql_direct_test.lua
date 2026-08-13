@@ -61,16 +61,16 @@ function graph_ql_direct_setup(mockres)
   local calls = {}
 
   local env = runner.env_override({
-    ["FUSSYAPIDOCUMENTATION_TEST_GRAPH_QL_ENTID"] = {},
-    ["FUSSYAPIDOCUMENTATION_TEST_LIVE"] = "FALSE",
-    ["FUSSYAPIDOCUMENTATION_APIKEY"] = "NONE",
+    ["FUSSY_API_DOCUMENTATION_TEST_GRAPH_QL_ENTID"] = {},
+    ["FUSSY_API_DOCUMENTATION_TEST_LIVE"] = "FALSE",
+    ["FUSSY_API_DOCUMENTATION_APIKEY"] = "NONE",
   })
 
-  local live = env["FUSSYAPIDOCUMENTATION_TEST_LIVE"] == "TRUE"
+  local live = env["FUSSY_API_DOCUMENTATION_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
-      apikey = env["FUSSYAPIDOCUMENTATION_APIKEY"],
+      apikey = env["FUSSY_API_DOCUMENTATION_APIKEY"],
     }
     local client = sdk.new(merged_opts)
     return {

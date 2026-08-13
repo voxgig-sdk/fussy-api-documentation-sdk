@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from fussyapidocumentation_sdk.utility.voxgig_struct import voxgig_struct as vs
 from fussyapidocumentation_sdk import FussyApiDocumentationSDK
-from core import helpers
+from fussyapidocumentation_sdk.core import helpers
 from test import runner
 
 
@@ -58,16 +58,16 @@ def _graph_ql_direct_setup(mockres):
     calls = []
 
     env = runner.env_override({
-        "FUSSYAPIDOCUMENTATION_TEST_GRAPH_QL_ENTID": {},
-        "FUSSYAPIDOCUMENTATION_TEST_LIVE": "FALSE",
-        "FUSSYAPIDOCUMENTATION_APIKEY": "NONE",
+        "FUSSY_API_DOCUMENTATION_TEST_GRAPH_QL_ENTID": {},
+        "FUSSY_API_DOCUMENTATION_TEST_LIVE": "FALSE",
+        "FUSSY_API_DOCUMENTATION_APIKEY": "NONE",
     })
 
-    live = env.get("FUSSYAPIDOCUMENTATION_TEST_LIVE") == "TRUE"
+    live = env.get("FUSSY_API_DOCUMENTATION_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
-            "apikey": env.get("FUSSYAPIDOCUMENTATION_APIKEY"),
+            "apikey": env.get("FUSSY_API_DOCUMENTATION_APIKEY"),
         }
         client = FussyApiDocumentationSDK(merged_opts)
         return {

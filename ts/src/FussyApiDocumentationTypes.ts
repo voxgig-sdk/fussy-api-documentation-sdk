@@ -7,28 +7,28 @@
 
 export interface GraphQl {
   data?: Record<string, any>
-  error?: any[]
+  errors?: any[]
   message?: string
-  operation_name?: string
+  operationName?: string
   query: string
-  variable?: Record<string, any>
+  variables?: Record<string, any>
 }
 
 export interface GraphQlListMatch {
   data?: Record<string, any>
-  error?: any[]
+  errors?: any[]
   message?: string
-  operation_name?: string
+  operationName?: string
   query?: string
-  variable?: Record<string, any>
+  variables?: Record<string, any>
 }
 
 export interface GraphQlCreateData {
   data?: Record<string, any>
-  error?: any[]
+  errors?: any[]
   message?: string
-  operation_name?: string
+  operationName?: string
   query: string
-  variable?: Record<string, any>
+  variables?: Record<string, any>
 }
 

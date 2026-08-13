@@ -21,7 +21,7 @@ class Config {
 
 
   main = {
-    name: 'ProjectName',
+    name: 'FussyApiDocumentation',
   }
 
 
@@ -67,7 +67,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "error",
+          "name": "errors",
           "req": false,
           "type": "`$ARRAY`",
           "index$": 1
@@ -81,7 +81,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "operation_name",
+          "name": "operationName",
           "req": false,
           "type": "`$STRING`",
           "index$": 3
@@ -95,7 +95,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "variable",
+          "name": "variables",
           "req": false,
           "type": "`$OBJECT`",
           "index$": 5
@@ -110,6 +110,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "POST",
               "orig": "/graphql",
               "parts": [
@@ -159,6 +160,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/graphql",
               "parts": [

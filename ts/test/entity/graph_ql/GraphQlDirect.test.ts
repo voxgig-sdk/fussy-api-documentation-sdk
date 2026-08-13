@@ -19,11 +19,15 @@ import {
 describe('GraphQlDirect', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when FUSSYAPIDOCUMENTATION_TEST_LIVE=TRUE.
-  afterEach(liveDelay('FUSSYAPIDOCUMENTATION_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when FUSSY_API_DOCUMENTATION_TEST_LIVE=TRUE.
+  afterEach(liveDelay('FUSSY_API_DOCUMENTATION_TEST_LIVE'))
 
   test('direct-exists', async () => {
     const sdk = new FussyApiDocumentationSDK({
+      // Concrete base: a live construction must satisfy any server
+      // variables a templated base URL declares; overriding base with a
+      // literal (as the direct flow tests do) sidesteps the requirement.
+      base: 'http://localhost:8080',
       system: { fetch: async () => ({}) }
     })
     assert('function' === typeof sdk.direct)
@@ -77,19 +81,19 @@ function directSetup(mockres?: any) {
   const calls: any[] = []
 
   const env = envOverride({
-    'FUSSYAPIDOCUMENTATION_TEST_GRAPH_QL_ENTID': {},
-    'FUSSYAPIDOCUMENTATION_TEST_LIVE': 'FALSE',
-    'FUSSYAPIDOCUMENTATION_APIKEY': 'NONE',
+    'FUSSY_API_DOCUMENTATION_TEST_GRAPH_QL_ENTID': {},
+    'FUSSY_API_DOCUMENTATION_TEST_LIVE': 'FALSE',
+    'FUSSY_API_DOCUMENTATION_APIKEY': 'NONE',
   })
 
-  const live = 'TRUE' === env.FUSSYAPIDOCUMENTATION_TEST_LIVE
+  const live = 'TRUE' === env.FUSSY_API_DOCUMENTATION_TEST_LIVE
 
   if (live) {
     const client = new FussyApiDocumentationSDK({
-      apikey: env.FUSSYAPIDOCUMENTATION_APIKEY,
+      apikey: env.FUSSY_API_DOCUMENTATION_APIKEY,
     })
 
-    let idmap: any = env['FUSSYAPIDOCUMENTATION_TEST_GRAPH_QL_ENTID']
+    let idmap: any = env['FUSSY_API_DOCUMENTATION_TEST_GRAPH_QL_ENTID']
     if ('string' === typeof idmap && idmap.startsWith('{')) {
       idmap = JSON.parse(idmap)
     }

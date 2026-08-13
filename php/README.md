@@ -4,7 +4,7 @@
 
 The PHP SDK for the FussyApiDocumentation API — an entity-oriented client using PHP conventions.
 
-The SDK exposes the API as capitalised, semantic **Entities** — for example `$client->GraphQl()` — with named operations (`list`/`create`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
+The SDK exposes the API as capitalised, semantic **Entities** — for example `$client->GraphQl_()` — with named operations (`list`/`create`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
 
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
@@ -38,7 +38,7 @@ $client = new FussyApiDocumentationSDK([
 ```php
 try {
     // list() returns an array of GraphQl records — iterate directly.
-    $graphqls = $client->GraphQl()->list();
+    $graphqls = $client->GraphQl_()->list();
     foreach ($graphqls as $item) {
         echo $item["data"] . "\n";
     }
@@ -50,8 +50,8 @@ try {
 ### 4. Create, update, and remove
 
 ```php
-// create() returns the bare created GraphQl record.
-$created = $client->GraphQl()->create(["query" => "example_query"]);
+// create() returns the ENTITY — call data_get() for the created GraphQl record.
+$created = $client->GraphQl_()->create(["query" => "example_query"]);
 
 ```
 
@@ -63,7 +63,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $graphqls = $client->GraphQl()->list();
+    $graphqls = $client->GraphQl_()->list();
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -135,8 +135,9 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = FussyApiDocumentationSDK::test();
 
-// Entity ops return the bare mock record (throws on error).
-$graphql = $client->GraphQl()->list();
+// Entity ops return the ENTITY (throws on error);
+// call data_get() for the mock record.
+$graphql = $client->GraphQl_()->list();
 print_r($graphql);
 ```
 
@@ -237,7 +238,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (an `array` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
 ops, a `list` for `list`) and throw on error. Wrap calls in
 `try`/`catch` to handle failures.
 
@@ -260,11 +261,11 @@ On error, `ok` is `false` and `$err` contains the error value.
 | Field | Description |
 | --- | --- |
 | `data` |  |
-| `error` |  |
+| `errors` |  |
 | `message` |  |
-| `operation_name` |  |
+| `operationName` |  |
 | `query` |  |
-| `variable` |  |
+| `variables` |  |
 
 Operations: Create, List.
 
@@ -277,7 +278,7 @@ API path: `/graphql`
 
 ### GraphQl
 
-Create an instance: `$graph_ql = $client->GraphQl();`
+Create an instance: `$graph_ql = $client->GraphQl_();`
 
 #### Operations
 
@@ -291,23 +292,23 @@ Create an instance: `$graph_ql = $client->GraphQl();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `data` | `array` |  |
-| `error` | `array` |  |
+| `errors` | `array` |  |
 | `message` | `string` |  |
-| `operation_name` | `string` |  |
+| `operationName` | `string` |  |
 | `query` | `string` |  |
-| `variable` | `array` |  |
+| `variables` | `array` |  |
 
 #### Example: List
 
 ```php
 // list() returns an array of GraphQl records (throws on error).
-$graph_qls = $client->GraphQl()->list();
+$graph_qls = $client->GraphQl_()->list();
 ```
 
 #### Example: Create
 
 ```php
-$graph_ql = $client->GraphQl()->create([
+$graph_ql = $client->GraphQl_()->create([
     "query" => null, // string
 ]);
 ```
@@ -389,7 +390,7 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$graphql = $client->GraphQl();
+$graphql = $client->GraphQl_();
 $graphql->list();
 
 // $graphql->data_get() now returns the graphql data from the last list

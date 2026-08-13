@@ -36,7 +36,7 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "error",
+            ["name"] = "errors",
             ["req"] = false,
             ["type"] = "`$ARRAY`",
             ["index$"] = 1,
@@ -50,7 +50,7 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "operation_name",
+            ["name"] = "operationName",
             ["req"] = false,
             ["type"] = "`$STRING`",
             ["index$"] = 3,
@@ -64,7 +64,7 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "variable",
+            ["name"] = "variables",
             ["req"] = false,
             ["type"] = "`$OBJECT`",
             ["index$"] = 5,
@@ -79,6 +79,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/graphql",
                 ["parts"] = {
@@ -128,6 +129,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/graphql",
                 ["parts"] = {

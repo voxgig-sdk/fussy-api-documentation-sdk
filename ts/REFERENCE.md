@@ -118,11 +118,11 @@ const graph_ql = client.GraphQl()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `data` | `Record<string, any>` | No |  |
-| `error` | `any[]` | No |  |
+| `errors` | `any[]` | No |  |
 | `message` | `string` | No |  |
-| `operation_name` | `string` | No |  |
+| `operationName` | `string` | No |  |
 | `query` | `string` | Yes |  |
-| `variable` | `Record<string, any>` | No |  |
+| `variables` | `Record<string, any>` | No |  |
 
 ### Operations
 

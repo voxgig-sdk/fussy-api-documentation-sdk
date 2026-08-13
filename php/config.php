@@ -42,7 +42,7 @@ class FussyApiDocumentationConfig
             ],
             [
               'active' => true,
-              'name' => 'error',
+              'name' => 'errors',
               'req' => false,
               'type' => '`$ARRAY`',
               'index$' => 1,
@@ -56,7 +56,7 @@ class FussyApiDocumentationConfig
             ],
             [
               'active' => true,
-              'name' => 'operation_name',
+              'name' => 'operationName',
               'req' => false,
               'type' => '`$STRING`',
               'index$' => 3,
@@ -70,7 +70,7 @@ class FussyApiDocumentationConfig
             ],
             [
               'active' => true,
-              'name' => 'variable',
+              'name' => 'variables',
               'req' => false,
               'type' => '`$OBJECT`',
               'index$' => 5,
@@ -85,6 +85,7 @@ class FussyApiDocumentationConfig
                 [
                   'active' => true,
                   'args' => [],
+                  'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/graphql',
                   'parts' => [
@@ -134,6 +135,7 @@ class FussyApiDocumentationConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/graphql',
                   'parts' => [

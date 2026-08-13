@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import FussyApiDocumentationControl
-from core.error import FussyApiDocumentationError
-from core.result import FussyApiDocumentationResult
-from core.spec import FussyApiDocumentationSpec
+from fussyapidocumentation_sdk.config import make_config
+from fussyapidocumentation_sdk.features import _make_feature
+from fussyapidocumentation_sdk.core.control import FussyApiDocumentationControl
+from fussyapidocumentation_sdk.core.error import FussyApiDocumentationError
+from fussyapidocumentation_sdk.core.result import FussyApiDocumentationResult
+from fussyapidocumentation_sdk.core.spec import FussyApiDocumentationSpec
 
 
 # True when this SDK was generated with the named feature.

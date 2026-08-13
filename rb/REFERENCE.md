@@ -95,11 +95,11 @@ graph_ql = client.GraphQl
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `data` | `Hash` | No |  |
-| `error` | `Array` | No |  |
+| `errors` | `Array` | No |  |
 | `message` | `String` | No |  |
-| `operation_name` | `String` | No |  |
+| `operationName` | `String` | No |  |
 | `query` | `String` | Yes |  |
-| `variable` | `Hash` | No |  |
+| `variables` | `Hash` | No |  |
 
 ### Operations
 

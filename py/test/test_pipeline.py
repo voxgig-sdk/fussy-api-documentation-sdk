@@ -16,11 +16,11 @@
 import pytest
 
 from fussyapidocumentation_sdk import FussyApiDocumentationSDK
-from core.error import FussyApiDocumentationError
-from core.result import FussyApiDocumentationResult
-from core.response import FussyApiDocumentationResponse
-from core.spec import FussyApiDocumentationSpec
-from feature.base_feature import FussyApiDocumentationBaseFeature
+from fussyapidocumentation_sdk.core.error import FussyApiDocumentationError
+from fussyapidocumentation_sdk.core.result import FussyApiDocumentationResult
+from fussyapidocumentation_sdk.core.response import FussyApiDocumentationResponse
+from fussyapidocumentation_sdk.core.spec import FussyApiDocumentationSpec
+from fussyapidocumentation_sdk.feature.base_feature import FussyApiDocumentationBaseFeature
 
 
 def _client():

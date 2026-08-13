@@ -49,7 +49,7 @@ end
 ### 4. Create, update, and remove
 
 ```ruby
-# create returns the bare created GraphQl record.
+# create returns the ENTITY — call data_get for the created GraphQl record.
 created = client.GraphQl.create({ "query" => "example_query" })
 
 ```
@@ -129,7 +129,8 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = FussyApiDocumentationSDK.test
 
-# Entity ops return the bare mock record (raises on error).
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
 graphql = client.GraphQl.list()
 puts graphql
 ```
@@ -250,11 +251,11 @@ returns a result `Hash` with these keys:
 | Field | Description |
 | --- | --- |
 | `data` |  |
-| `error` |  |
+| `errors` |  |
 | `message` |  |
-| `operation_name` |  |
+| `operationName` |  |
 | `query` |  |
-| `variable` |  |
+| `variables` |  |
 
 Operations: Create, List.
 
@@ -281,11 +282,11 @@ Create an instance: `graph_ql = client.GraphQl`
 | Field | Type | Description |
 | --- | --- | --- |
 | `data` | `Hash` |  |
-| `error` | `Array` |  |
+| `errors` | `Array` |  |
 | `message` | `String` |  |
-| `operation_name` | `String` |  |
+| `operationName` | `String` |  |
 | `query` | `String` |  |
-| `variable` | `Hash` |  |
+| `variables` | `Hash` |  |
 
 #### Example: List
 

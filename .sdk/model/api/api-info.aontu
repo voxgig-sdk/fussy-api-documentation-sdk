@@ -32,3 +32,5 @@ main: {
       website: "https://static.fussy.fun/api/schema.graphql"
     }
   }
+}
+

@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# FussyApiDocumentation SDK exists test
 
 import pytest
 from fussyapidocumentation_sdk import FussyApiDocumentationSDK

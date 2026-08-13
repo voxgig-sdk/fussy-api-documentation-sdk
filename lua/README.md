@@ -233,9 +233,9 @@ data **directly** — there is no wrapper:
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local graph_ql, err = client:GraphQl():load()
+    local graph_ql, err = client:GraphQl():list()
     if err then error(err) end
-    -- graph_ql is the loaded record
+    -- graph_ql is the record list
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
@@ -247,11 +247,11 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 | Field | Description |
 | --- | --- |
 | `data` |  |
-| `error` |  |
+| `errors` |  |
 | `message` |  |
-| `operation_name` |  |
+| `operationName` |  |
 | `query` |  |
-| `variable` |  |
+| `variables` |  |
 
 Operations: Create, List.
 
@@ -278,11 +278,11 @@ Create an instance: `local graph_ql = client:GraphQl(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `data` | `table` |  |
-| `error` | `table` |  |
+| `errors` | `table` |  |
 | `message` | `string` |  |
-| `operation_name` | `string` |  |
+| `operationName` | `string` |  |
 | `query` | `string` |  |
-| `variable` | `table` |  |
+| `variables` | `table` |  |
 
 #### Example: List
 

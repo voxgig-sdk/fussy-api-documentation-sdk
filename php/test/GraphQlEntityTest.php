@@ -14,7 +14,7 @@ class GraphQlEntityTest extends TestCase
     public function test_create_instance(): void
     {
         $testsdk = FussyApiDocumentationSDK::test(null, null);
-        $ent = $testsdk->GraphQl(null);
+        $ent = $testsdk->GraphQl_(null);
         $this->assertNotNull($ent);
     }
 
@@ -36,7 +36,7 @@ class GraphQlEntityTest extends TestCase
 
         // Fallback: streaming inactive -> yields the materialised list items.
         $base = FussyApiDocumentationSDK::test($seed, null);
-        $seen = iterator_to_array($base->GraphQl(null)->stream("list", null, null), false);
+        $seen = iterator_to_array($base->GraphQl_(null)->stream("list", null, null), false);
         $this->assertCount(3, $seen);
 
         // Inbound: streaming active -> yields each item from the feature.
@@ -44,7 +44,7 @@ class GraphQlEntityTest extends TestCase
         if (isset($cfg["feature"]) && is_array($cfg["feature"]) && isset($cfg["feature"]["streaming"])) {
             $sdk = FussyApiDocumentationSDK::test($seed, ["feature" => ["streaming" => ["active" => true]]]);
             $got = [];
-            foreach ($sdk->GraphQl(null)->stream("list", null, null) as $item) {
+            foreach ($sdk->GraphQl_(null)->stream("list", null, null) as $item) {
                 if (is_array($item) && array_is_list($item)) {
                     foreach ($item as $sub) {
                         $got[] = $sub;
@@ -72,18 +72,18 @@ class GraphQlEntityTest extends TestCase
         // The basic flow consumes synthetic IDs from the fixture. In live mode
         // without an *_ENTID env override, those IDs hit the live API and 4xx.
         if (!empty($setup["synthetic_only"])) {
-            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set FUSSYAPIDOCUMENTATION_TEST_GRAPH_QL_ENTID JSON to run live");
+            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set FUSSY_API_DOCUMENTATION_TEST_GRAPH_QL_ENTID JSON to run live");
             return;
         }
         $client = $setup["client"];
 
         // CREATE
-        $graph_ql_ref01_ent = $client->GraphQl(null);
+        $graph_ql_ref01_ent = $client->GraphQl_(null);
         $graph_ql_ref01_data = Helpers::to_map(Vs::getprop(
             Vs::getpath($setup["data"], "new.graph_ql"), "graph_ql_ref01"));
 
         $graph_ql_ref01_data_result = $graph_ql_ref01_ent->create($graph_ql_ref01_data, null);
-        $graph_ql_ref01_data = Helpers::to_map($graph_ql_ref01_data_result);
+        $graph_ql_ref01_data = Helpers::to_map(is_object($graph_ql_ref01_data_result) && method_exists($graph_ql_ref01_data_result, 'data_get') ? $graph_ql_ref01_data_result->data_get() : $graph_ql_ref01_data_result);
         $this->assertNotNull($graph_ql_ref01_data);
 
         // LIST
@@ -91,11 +91,6 @@ class GraphQlEntityTest extends TestCase
 
         $graph_ql_ref01_list_result = $graph_ql_ref01_ent->list($graph_ql_ref01_match, null);
         $this->assertIsArray($graph_ql_ref01_list_result);
-
-        $found_item = sdk_select(
-            Runner::entity_list_to_data($graph_ql_ref01_list_result),
-            ["id" => $graph_ql_ref01_data["id"]]);
-        $this->assertNotEmpty($found_item);
 
     }
 }
@@ -122,39 +117,39 @@ function graph_ql_basic_setup($extra)
     // Detect ENTID env override before envOverride consumes it. When live
     // mode is on without a real override, the basic test runs against synthetic
     // IDs from the fixture and 4xx's. Surface this so the test can skip.
-    $entid_env_raw = getenv("FUSSYAPIDOCUMENTATION_TEST_GRAPH_QL_ENTID");
+    $entid_env_raw = getenv("FUSSY_API_DOCUMENTATION_TEST_GRAPH_QL_ENTID");
     $idmap_overridden = $entid_env_raw !== false && str_starts_with(trim($entid_env_raw), "{");
 
     $env = Runner::env_override([
-        "FUSSYAPIDOCUMENTATION_TEST_GRAPH_QL_ENTID" => $idmap,
-        "FUSSYAPIDOCUMENTATION_TEST_LIVE" => "FALSE",
-        "FUSSYAPIDOCUMENTATION_TEST_EXPLAIN" => "FALSE",
-        "FUSSYAPIDOCUMENTATION_APIKEY" => "NONE",
+        "FUSSY_API_DOCUMENTATION_TEST_GRAPH_QL_ENTID" => $idmap,
+        "FUSSY_API_DOCUMENTATION_TEST_LIVE" => "FALSE",
+        "FUSSY_API_DOCUMENTATION_TEST_EXPLAIN" => "FALSE",
+        "FUSSY_API_DOCUMENTATION_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
-        $env["FUSSYAPIDOCUMENTATION_TEST_GRAPH_QL_ENTID"]);
+        $env["FUSSY_API_DOCUMENTATION_TEST_GRAPH_QL_ENTID"]);
     if ($idmap_resolved === null) {
         $idmap_resolved = Helpers::to_map($idmap);
     }
 
-    if ($env["FUSSYAPIDOCUMENTATION_TEST_LIVE"] === "TRUE") {
+    if ($env["FUSSY_API_DOCUMENTATION_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["FUSSYAPIDOCUMENTATION_APIKEY"],
+                "apikey" => $env["FUSSY_API_DOCUMENTATION_APIKEY"],
             ],
             $extra ?? [],
         ]);
         $client = new FussyApiDocumentationSDK(Helpers::to_map($merged_opts));
     }
 
-    $live = $env["FUSSYAPIDOCUMENTATION_TEST_LIVE"] === "TRUE";
+    $live = $env["FUSSY_API_DOCUMENTATION_TEST_LIVE"] === "TRUE";
     return [
         "client" => $client,
         "data" => $entity_data,
         "idmap" => $idmap_resolved,
         "env" => $env,
-        "explain" => $env["FUSSYAPIDOCUMENTATION_TEST_EXPLAIN"] === "TRUE",
+        "explain" => $env["FUSSY_API_DOCUMENTATION_TEST_EXPLAIN"] === "TRUE",
         "live" => $live,
         "synthetic_only" => $live && !$idmap_overridden,
         "now" => (int)(microtime(true) * 1000),

@@ -38,9 +38,18 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = FussyApiDocumentationSDK.test()
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = FussyApiDocumentationSDK.test({
+  entity: {
+    graph_ql: {
+      test01: { id: 'test01', query: 'example_query' },
+    },
+  },
+})
 const graphqls = await client.GraphQl().list()
-// graphqls is an array of bare GraphQl records populated with mock data
+// graphqls is an array of GraphQl entities, populated with mock data
+// — call graphqls[0].data() for the record itself
 console.log(graphqls)
 ```
 
@@ -59,7 +68,7 @@ print(graphqls)
 $client = FussyApiDocumentationSDK::test([
     "entity" => ["graphql" => ["test01" => []]],
 ]);
-$graphqls = $client->GraphQl()->list();
+$graphqls = $client->GraphQl_()->list();
 ```
 
 ### Golang
@@ -112,7 +121,7 @@ const client = new FussyApiDocumentationSDK({
   apikey: process.env.FUSSY_API_DOCUMENTATION_APIKEY,
 })
 
-// List all graphqls (returns GraphQl[])
+// List all graphqls (returns GraphQlEntity[] — .data() for the record)
 const graphqls = await client.GraphQl().list()
 for (const graphql of graphqls) {
   console.log(graphql)
@@ -191,7 +200,7 @@ $client = new FussyApiDocumentationSDK([
 ]);
 
 // List all graphqls (returns an array; throws on error)
-$graphqls = $client->GraphQl()->list();
+$graphqls = $client->GraphQl_()->list();
 print_r($graphqls);
 ```
 
@@ -356,6 +365,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://fussy-inc.github.io/docs/](https://fussy-inc.github.io/docs/)
 

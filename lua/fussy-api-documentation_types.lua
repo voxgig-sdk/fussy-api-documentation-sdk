@@ -8,27 +8,27 @@
 
 ---@class GraphQl
 ---@field data? table
----@field error? table
+---@field errors? table
 ---@field message? string
----@field operation_name? string
+---@field operationName? string
 ---@field query string
----@field variable? table
+---@field variables? table
 
 ---@class GraphQlListMatch
 ---@field data? table
----@field error? table
+---@field errors? table
 ---@field message? string
----@field operation_name? string
+---@field operationName? string
 ---@field query? string
----@field variable? table
+---@field variables? table
 
 ---@class GraphQlCreateData
 ---@field data? table
----@field error? table
+---@field errors? table
 ---@field message? string
----@field operation_name? string
+---@field operationName? string
 ---@field query string
----@field variable? table
+---@field variables? table
 
 local M = {}
 

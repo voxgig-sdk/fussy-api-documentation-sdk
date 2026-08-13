@@ -13,27 +13,27 @@
 # @!attribute [rw] data
 #   @return [Hash, nil]
 #
-# @!attribute [rw] error
+# @!attribute [rw] errors
 #   @return [Array, nil]
 #
 # @!attribute [rw] message
 #   @return [String, nil]
 #
-# @!attribute [rw] operation_name
+# @!attribute [rw] operationName
 #   @return [String, nil]
 #
 # @!attribute [rw] query
 #   @return [String]
 #
-# @!attribute [rw] variable
+# @!attribute [rw] variables
 #   @return [Hash, nil]
 GraphQl = Struct.new(
   :data,
-  :error,
+  :errors,
   :message,
-  :operation_name,
+  :operationName,
   :query,
-  :variable,
+  :variables,
   keyword_init: true
 )
 
@@ -42,27 +42,27 @@ GraphQl = Struct.new(
 # @!attribute [rw] data
 #   @return [Hash, nil]
 #
-# @!attribute [rw] error
+# @!attribute [rw] errors
 #   @return [Array, nil]
 #
 # @!attribute [rw] message
 #   @return [String, nil]
 #
-# @!attribute [rw] operation_name
+# @!attribute [rw] operationName
 #   @return [String, nil]
 #
 # @!attribute [rw] query
 #   @return [String, nil]
 #
-# @!attribute [rw] variable
+# @!attribute [rw] variables
 #   @return [Hash, nil]
 GraphQlListMatch = Struct.new(
   :data,
-  :error,
+  :errors,
   :message,
-  :operation_name,
+  :operationName,
   :query,
-  :variable,
+  :variables,
   keyword_init: true
 )
 
@@ -71,27 +71,27 @@ GraphQlListMatch = Struct.new(
 # @!attribute [rw] data
 #   @return [Hash, nil]
 #
-# @!attribute [rw] error
+# @!attribute [rw] errors
 #   @return [Array, nil]
 #
 # @!attribute [rw] message
 #   @return [String, nil]
 #
-# @!attribute [rw] operation_name
+# @!attribute [rw] operationName
 #   @return [String, nil]
 #
 # @!attribute [rw] query
 #   @return [String]
 #
-# @!attribute [rw] variable
+# @!attribute [rw] variables
 #   @return [Hash, nil]
 GraphQlCreateData = Struct.new(
   :data,
-  :error,
+  :errors,
   :message,
-  :operation_name,
+  :operationName,
   :query,
-  :variable,
+  :variables,
   keyword_init: true
 )
 

@@ -11,7 +11,7 @@ main: kit: entity: graph_ql: {
       type: "`$OBJECT`"
     }
     {
-      name: "error"
+      name: "errors"
       req: false
       type: "`$ARRAY`"
     }
@@ -21,7 +21,7 @@ main: kit: entity: graph_ql: {
       type: "`$STRING`"
     }
     {
-      name: "operation_name"
+      name: "operationName"
       req: false
       type: "`$STRING`"
     }
@@ -31,7 +31,7 @@ main: kit: entity: graph_ql: {
       type: "`$STRING`"
     }
     {
-      name: "variable"
+      name: "variables"
       req: false
       type: "`$OBJECT`"
     }

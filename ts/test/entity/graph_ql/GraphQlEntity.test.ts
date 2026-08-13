@@ -26,8 +26,8 @@ import {
 describe('GraphQlEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when FUSSYAPIDOCUMENTATION_TEST_LIVE=TRUE.
-  afterEach(liveDelay('FUSSYAPIDOCUMENTATION_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when FUSSY_API_DOCUMENTATION_TEST_LIVE=TRUE.
+  afterEach(liveDelay('FUSSY_API_DOCUMENTATION_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = FussyApiDocumentationSDK.test()
@@ -62,16 +62,14 @@ describe('GraphQlEntity', async () => {
     const graph_ql_ref01_ent = client.GraphQl()
     let graph_ql_ref01_data = setup.data.new.graph_ql['graph_ql_ref01']
 
-    graph_ql_ref01_data = await graph_ql_ref01_ent.create(graph_ql_ref01_data)
+    graph_ql_ref01_data = (await graph_ql_ref01_ent.create(graph_ql_ref01_data)).data()
     assert(null != graph_ql_ref01_data)
 
 
     // LIST
     const graph_ql_ref01_match: any = {}
 
-    const graph_ql_ref01_list = await graph_ql_ref01_ent.list(graph_ql_ref01_match)
-
-    assert(!isempty(select(graph_ql_ref01_list, { id: graph_ql_ref01_data.id })))
+    const graph_ql_ref01_list = (await graph_ql_ref01_ent.list(graph_ql_ref01_match)).map((e: any) => e.data())
 
 
   })

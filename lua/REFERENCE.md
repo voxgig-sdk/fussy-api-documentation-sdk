@@ -92,11 +92,11 @@ local graph_ql = client:GraphQl(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `data` | `table` | No |  |
-| `error` | `table` | No |  |
+| `errors` | `table` | No |  |
 | `message` | `string` | No |  |
-| `operation_name` | `string` | No |  |
+| `operationName` | `string` | No |  |
 | `query` | `string` | Yes |  |
-| `variable` | `table` | No |  |
+| `variables` | `table` | No |  |
 
 ### Operations
 

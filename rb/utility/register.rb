@@ -24,6 +24,7 @@ require_relative 'prepare_method'
 require_relative 'prepare_params'
 require_relative 'prepare_path'
 require_relative 'prepare_query'
+require_relative 'graphql'
 require_relative 'result_basic'
 require_relative 'result_body'
 require_relative 'result_headers'
@@ -55,6 +56,8 @@ FussyApiDocumentationUtility.registrar = ->(u) {
   u.prepare_params = FussyApiDocumentationUtilities::PrepareParams
   u.prepare_path = FussyApiDocumentationUtilities::PreparePath
   u.prepare_query = FussyApiDocumentationUtilities::PrepareQuery
+  u.graphql_body = FussyApiDocumentationUtilities::GraphqlBody
+  u.graphql_errors = FussyApiDocumentationUtilities::GraphqlErrors
   u.result_basic = FussyApiDocumentationUtilities::ResultBasic
   u.result_body = FussyApiDocumentationUtilities::ResultBody
   u.result_headers = FussyApiDocumentationUtilities::ResultHeaders

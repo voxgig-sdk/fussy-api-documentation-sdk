@@ -275,11 +275,11 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 | Field | Description |
 | --- | --- |
 | `"data"` |  |
-| `"error"` |  |
+| `"errors"` |  |
 | `"message"` |  |
-| `"operation_name"` |  |
+| `"operationName"` |  |
 | `"query"` |  |
-| `"variable"` |  |
+| `"variables"` |  |
 
 Operations: Create, List.
 
@@ -306,11 +306,11 @@ Create an instance: `graphQl := client.GraphQl(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `data` | `map[string]any` |  |
-| `error` | `[]any` |  |
+| `errors` | `[]any` |  |
 | `message` | `string` |  |
-| `operation_name` | `string` |  |
+| `operationName` | `string` |  |
 | `query` | `string` |  |
-| `variable` | `map[string]any` |  |
+| `variables` | `map[string]any` |  |
 
 #### Example: List
 
