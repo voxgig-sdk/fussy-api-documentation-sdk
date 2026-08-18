@@ -40,7 +40,7 @@ class FussyApiDocumentationSDK
         $utility = new FussyApiDocumentationUtility();
         $this->_utility = $utility;
 
-        $config = FussyApiDocumentationConfig::make_config();
+        $config = FussyApiDocumentationConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,

@@ -15,7 +15,7 @@ require_relative "../FussyApiDocumentation_sdk"
 module FussyApiDocumentationFeatureHarness
   # True when this SDK was generated with the named feature.
   def self.has_feature?(name)
-    f = FussyApiDocumentationConfig.make_config["feature"]
+    f = FussyApiDocumentationConfig.shared_config["feature"]
     f.is_a?(Hash) && !f[name].nil?
   end
 

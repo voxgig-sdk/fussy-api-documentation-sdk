@@ -23,6 +23,7 @@ build = {
   modules = {
     ["fussy-api-documentation_sdk"] = "fussy-api-documentation_sdk.lua",
     ["config"] = "config.lua",
+    ["config_shared"] = "config_shared.lua",
     ["features"] = "features.lua",
   }
 }

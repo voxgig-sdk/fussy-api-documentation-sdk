@@ -28,7 +28,7 @@ class FussyApiDocumentationSDK
     utility = FussyApiDocumentationUtility.new
     @_utility = utility
 
-    config = FussyApiDocumentationConfig.make_config
+    config = FussyApiDocumentationConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,
