@@ -11,6 +11,9 @@ func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
 			"name": "FussyApiDocumentation",
+			"slug": "fussy-api-documentation",
+			"version": "0.0.1",
+			"target": "go",
 		},
 		"feature": map[string]any{
 			"test": map[string]any{
@@ -36,10 +39,12 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "data",
+						"short": "The result data from the GraphQL operation",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "errors",
+						"short": "Array of errors if the operation failed",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
@@ -48,15 +53,18 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "operationName",
+						"short": "Name of the operation to execute (if query contains multiple operations)",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "query",
 						"req": true,
+						"short": "GraphQL query or mutation string",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "variables",
+						"short": "Variables for the GraphQL query/mutation",
 						"type": "`$OBJECT`",
 					},
 				},

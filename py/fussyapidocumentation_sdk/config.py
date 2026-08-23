@@ -28,6 +28,9 @@ def make_config():
     return {
         "main": {
             "name": "FussyApiDocumentation",
+            "slug": "fussy-api-documentation",
+            "version": "0.0.1",
+            "target": "py",
         },
         "feature": {
             "test": {
@@ -53,10 +56,12 @@ def make_config():
         "fields": [
           {
             "name": "data",
+            "short": "The result data from the GraphQL operation",
             "type": "`$OBJECT`",
           },
           {
             "name": "errors",
+            "short": "Array of errors if the operation failed",
             "type": "`$ARRAY`",
           },
           {
@@ -65,15 +70,18 @@ def make_config():
           },
           {
             "name": "operationName",
+            "short": "Name of the operation to execute (if query contains multiple operations)",
             "type": "`$STRING`",
           },
           {
             "name": "query",
             "req": True,
+            "short": "GraphQL query or mutation string",
             "type": "`$STRING`",
           },
           {
             "name": "variables",
+            "short": "Variables for the GraphQL query/mutation",
             "type": "`$OBJECT`",
           },
         ],

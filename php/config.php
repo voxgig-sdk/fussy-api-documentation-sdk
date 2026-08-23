@@ -33,6 +33,9 @@ class FussyApiDocumentationConfig
         return [
             "main" => [
                 "name" => "FussyApiDocumentation",
+                "slug" => "fussy-api-documentation",
+                "version" => "0.0.1",
+                "target" => "php",
             ],
             "feature" => [
                 "test" => [
@@ -58,10 +61,12 @@ class FussyApiDocumentationConfig
           'fields' => [
             [
               'name' => 'data',
+              'short' => 'The result data from the GraphQL operation',
               'type' => '`$OBJECT`',
             ],
             [
               'name' => 'errors',
+              'short' => 'Array of errors if the operation failed',
               'type' => '`$ARRAY`',
             ],
             [
@@ -70,15 +75,18 @@ class FussyApiDocumentationConfig
             ],
             [
               'name' => 'operationName',
+              'short' => 'Name of the operation to execute (if query contains multiple operations)',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'query',
               'req' => true,
+              'short' => 'GraphQL query or mutation string',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'variables',
+              'short' => 'Variables for the GraphQL query/mutation',
               'type' => '`$OBJECT`',
             ],
           ],

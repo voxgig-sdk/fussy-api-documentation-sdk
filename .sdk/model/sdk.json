@@ -36,12 +36,14 @@
               "active": true,
               "name": "data",
               "req": false,
+              "short": "The result data from the GraphQL operation",
               "type": "`$OBJECT`"
             },
             {
               "active": true,
               "name": "errors",
               "req": false,
+              "short": "Array of errors if the operation failed",
               "type": "`$ARRAY`"
             },
             {
@@ -54,18 +56,21 @@
               "active": true,
               "name": "operationName",
               "req": false,
+              "short": "Name of the operation to execute (if query contains multiple operations)",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "query",
               "req": true,
+              "short": "GraphQL query or mutation string",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "variables",
               "req": false,
+              "short": "Variables for the GraphQL query/mutation",
               "type": "`$OBJECT`"
             }
           ],

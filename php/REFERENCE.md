@@ -93,12 +93,12 @@ $graph_ql = $client->GraphQl_();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | `array` | No |  |
-| `errors` | `array` | No |  |
+| `data` | `array` | No | The result data from the GraphQL operation |
+| `errors` | `array` | No | Array of errors if the operation failed |
 | `message` | `string` | No |  |
-| `operationName` | `string` | No |  |
-| `query` | `string` | Yes |  |
-| `variables` | `array` | No |  |
+| `operationName` | `string` | No | Name of the operation to execute (if query contains multiple operations) |
+| `query` | `string` | Yes | GraphQL query or mutation string |
+| `variables` | `array` | No | Variables for the GraphQL query/mutation |
 
 ### Operations
 

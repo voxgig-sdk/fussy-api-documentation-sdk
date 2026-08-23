@@ -88,12 +88,12 @@ graph_ql = client.GraphQl()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | `dict` | No |  |
-| `errors` | `list` | No |  |
+| `data` | `dict` | No | The result data from the GraphQL operation |
+| `errors` | `list` | No | Array of errors if the operation failed |
 | `message` | `str` | No |  |
-| `operationName` | `str` | No |  |
-| `query` | `str` | Yes |  |
-| `variables` | `dict` | No |  |
+| `operationName` | `str` | No | Name of the operation to execute (if query contains multiple operations) |
+| `query` | `str` | Yes | GraphQL query or mutation string |
+| `variables` | `dict` | No | Variables for the GraphQL query/mutation |
 
 ### Operations
 

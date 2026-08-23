@@ -260,12 +260,12 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `data` |  |
-| `errors` |  |
+| `data` | The result data from the GraphQL operation |
+| `errors` | Array of errors if the operation failed |
 | `message` |  |
-| `operationName` |  |
-| `query` |  |
-| `variables` |  |
+| `operationName` | Name of the operation to execute (if query contains multiple operations) |
+| `query` | GraphQL query or mutation string |
+| `variables` | Variables for the GraphQL query/mutation |
 
 Operations: Create, List.
 
@@ -291,12 +291,12 @@ Create an instance: `$graph_ql = $client->GraphQl_();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `data` | `array` |  |
-| `errors` | `array` |  |
+| `data` | `array` | The result data from the GraphQL operation |
+| `errors` | `array` | Array of errors if the operation failed |
 | `message` | `string` |  |
-| `operationName` | `string` |  |
-| `query` | `string` |  |
-| `variables` | `array` |  |
+| `operationName` | `string` | Name of the operation to execute (if query contains multiple operations) |
+| `query` | `string` | GraphQL query or mutation string |
+| `variables` | `array` | Variables for the GraphQL query/mutation |
 
 #### Example: List
 

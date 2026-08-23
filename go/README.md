@@ -6,7 +6,7 @@ The Golang SDK for the FussyApiDocumentation API — an entity-oriented client u
 
 It exposes the API as capitalised, semantic **Entities** — e.g. `client.GraphQl(nil)` — each with the same small set of operations (`List`, `Create`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb`, `ts` — see
 > the [top-level README](../README.md).
 
 
@@ -274,12 +274,12 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
-| `"data"` |  |
-| `"errors"` |  |
+| `"data"` | The result data from the GraphQL operation |
+| `"errors"` | Array of errors if the operation failed |
 | `"message"` |  |
-| `"operationName"` |  |
-| `"query"` |  |
-| `"variables"` |  |
+| `"operationName"` | Name of the operation to execute (if query contains multiple operations) |
+| `"query"` | GraphQL query or mutation string |
+| `"variables"` | Variables for the GraphQL query/mutation |
 
 Operations: Create, List.
 
@@ -305,12 +305,12 @@ Create an instance: `graphQl := client.GraphQl(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `data` | `map[string]any` |  |
-| `errors` | `[]any` |  |
+| `data` | `map[string]any` | The result data from the GraphQL operation |
+| `errors` | `[]any` | Array of errors if the operation failed |
 | `message` | `string` |  |
-| `operationName` | `string` |  |
-| `query` | `string` |  |
-| `variables` | `map[string]any` |  |
+| `operationName` | `string` | Name of the operation to execute (if query contains multiple operations) |
+| `query` | `string` | GraphQL query or mutation string |
+| `variables` | `map[string]any` | Variables for the GraphQL query/mutation |
 
 #### Example: List
 

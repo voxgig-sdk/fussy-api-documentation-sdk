@@ -250,12 +250,12 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `data` |  |
-| `errors` |  |
+| `data` | The result data from the GraphQL operation |
+| `errors` | Array of errors if the operation failed |
 | `message` |  |
-| `operationName` |  |
-| `query` |  |
-| `variables` |  |
+| `operationName` | Name of the operation to execute (if query contains multiple operations) |
+| `query` | GraphQL query or mutation string |
+| `variables` | Variables for the GraphQL query/mutation |
 
 Operations: Create, List.
 
@@ -281,12 +281,12 @@ Create an instance: `graph_ql = client.GraphQl`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `data` | `Hash` |  |
-| `errors` | `Array` |  |
+| `data` | `Hash` | The result data from the GraphQL operation |
+| `errors` | `Array` | Array of errors if the operation failed |
 | `message` | `String` |  |
-| `operationName` | `String` |  |
-| `query` | `String` |  |
-| `variables` | `Hash` |  |
+| `operationName` | `String` | Name of the operation to execute (if query contains multiple operations) |
+| `query` | `String` | GraphQL query or mutation string |
+| `variables` | `Hash` | Variables for the GraphQL query/mutation |
 
 #### Example: List
 

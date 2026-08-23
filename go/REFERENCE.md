@@ -99,12 +99,12 @@ fmt.Println(graphQl.GetName()) // "graph_ql"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | `map[string]any` | No |  |
-| `errors` | `[]any` | No |  |
+| `data` | `map[string]any` | No | The result data from the GraphQL operation |
+| `errors` | `[]any` | No | Array of errors if the operation failed |
 | `message` | `string` | No |  |
-| `operationName` | `string` | No |  |
-| `query` | `string` | Yes |  |
-| `variables` | `map[string]any` | No |  |
+| `operationName` | `string` | No | Name of the operation to execute (if query contains multiple operations) |
+| `query` | `string` | Yes | GraphQL query or mutation string |
+| `variables` | `map[string]any` | No | Variables for the GraphQL query/mutation |
 
 ### Operations
 

@@ -91,12 +91,12 @@ local graph_ql = client:GraphQl(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | `table` | No |  |
-| `errors` | `table` | No |  |
+| `data` | `table` | No | The result data from the GraphQL operation |
+| `errors` | `table` | No | Array of errors if the operation failed |
 | `message` | `string` | No |  |
-| `operationName` | `string` | No |  |
-| `query` | `string` | Yes |  |
-| `variables` | `table` | No |  |
+| `operationName` | `string` | No | Name of the operation to execute (if query contains multiple operations) |
+| `query` | `string` | Yes | GraphQL query or mutation string |
+| `variables` | `table` | No | Variables for the GraphQL query/mutation |
 
 ### Operations
 

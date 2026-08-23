@@ -19,9 +19,20 @@ class Config {
     return fi
   }
 
+  // False for a feature added at runtime via options.extend (station's
+  // adopt path) - the constructor uses this to skip makeFeature for names
+  // no generated class backs.
+  hasFeature(this: any, fn: string) {
+    return null != FEATURE_CLASS[fn]
+  }
+
 
   main = {
     name: 'FussyApiDocumentation',
+        slug: "fussy-api-documentation",
+    version: "0.0.1",
+    target: "ts",
+
   }
 
 
@@ -60,10 +71,12 @@ class Config {
       "fields": [
         {
           "name": "data",
+          "short": "The result data from the GraphQL operation",
           "type": "`$OBJECT`"
         },
         {
           "name": "errors",
+          "short": "Array of errors if the operation failed",
           "type": "`$ARRAY`"
         },
         {
@@ -72,15 +85,18 @@ class Config {
         },
         {
           "name": "operationName",
+          "short": "Name of the operation to execute (if query contains multiple operations)",
           "type": "`$STRING`"
         },
         {
           "name": "query",
           "req": true,
+          "short": "GraphQL query or mutation string",
           "type": "`$STRING`"
         },
         {
           "name": "variables",
+          "short": "Variables for the GraphQL query/mutation",
           "type": "`$OBJECT`"
         }
       ],

@@ -9,7 +9,7 @@ The API is exposed as capitalised, semantic **Entities** — e.g.
 instead of raw URL paths and query parameters. This keeps the surface
 predictable and low-friction for both humans and AI agents.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go`, `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb` — see
 > the [top-level README](../README.md).
 
 
@@ -305,12 +305,12 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
-| `data` |  |
-| `errors` |  |
+| `data` | The result data from the GraphQL operation |
+| `errors` | Array of errors if the operation failed |
 | `message` |  |
-| `operationName` |  |
-| `query` |  |
-| `variables` |  |
+| `operationName` | Name of the operation to execute (if query contains multiple operations) |
+| `query` | GraphQL query or mutation string |
+| `variables` | Variables for the GraphQL query/mutation |
 
 Operations: create, list.
 
@@ -336,12 +336,12 @@ Create an instance: `const graph_ql = client.GraphQl()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `data` | `Record<string, any>` |  |
-| `errors` | `any[]` |  |
+| `data` | `Record<string, any>` | The result data from the GraphQL operation |
+| `errors` | `any[]` | Array of errors if the operation failed |
 | `message` | `string` |  |
-| `operationName` | `string` |  |
-| `query` | `string` |  |
-| `variables` | `Record<string, any>` |  |
+| `operationName` | `string` | Name of the operation to execute (if query contains multiple operations) |
+| `query` | `string` | GraphQL query or mutation string |
+| `variables` | `Record<string, any>` | Variables for the GraphQL query/mutation |
 
 #### Example: List
 

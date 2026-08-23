@@ -257,12 +257,12 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `data` |  |
-| `errors` |  |
+| `data` | The result data from the GraphQL operation |
+| `errors` | Array of errors if the operation failed |
 | `message` |  |
-| `operationName` |  |
-| `query` |  |
-| `variables` |  |
+| `operationName` | Name of the operation to execute (if query contains multiple operations) |
+| `query` | GraphQL query or mutation string |
+| `variables` | Variables for the GraphQL query/mutation |
 
 Operations: Create, List.
 
@@ -288,12 +288,12 @@ Create an instance: `graph_ql = client.GraphQl()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `data` | `dict` |  |
-| `errors` | `list` |  |
+| `data` | `dict` | The result data from the GraphQL operation |
+| `errors` | `list` | Array of errors if the operation failed |
 | `message` | `str` |  |
-| `operationName` | `str` |  |
-| `query` | `str` |  |
-| `variables` | `dict` |  |
+| `operationName` | `str` | Name of the operation to execute (if query contains multiple operations) |
+| `query` | `str` | GraphQL query or mutation string |
+| `variables` | `dict` | Variables for the GraphQL query/mutation |
 
 #### Example: List
 

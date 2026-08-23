@@ -246,12 +246,12 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `data` |  |
-| `errors` |  |
+| `data` | The result data from the GraphQL operation |
+| `errors` | Array of errors if the operation failed |
 | `message` |  |
-| `operationName` |  |
-| `query` |  |
-| `variables` |  |
+| `operationName` | Name of the operation to execute (if query contains multiple operations) |
+| `query` | GraphQL query or mutation string |
+| `variables` | Variables for the GraphQL query/mutation |
 
 Operations: Create, List.
 
@@ -277,12 +277,12 @@ Create an instance: `local graph_ql = client:GraphQl(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `data` | `table` |  |
-| `errors` | `table` |  |
+| `data` | `table` | The result data from the GraphQL operation |
+| `errors` | `table` | Array of errors if the operation failed |
 | `message` | `string` |  |
-| `operationName` | `string` |  |
-| `query` | `string` |  |
-| `variables` | `table` |  |
+| `operationName` | `string` | Name of the operation to execute (if query contains multiple operations) |
+| `query` | `string` | GraphQL query or mutation string |
+| `variables` | `table` | Variables for the GraphQL query/mutation |
 
 #### Example: List
 
