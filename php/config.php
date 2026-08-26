@@ -42,6 +42,7 @@ class FussyApiDocumentationConfig
           'options' => [
             'active' => false,
           ],
+          'transport' => 'base',
         ],
             ],
             "options" => [
