@@ -24,12 +24,9 @@ type GraphQl struct {
 
 // GraphQlListMatch is the typed request payload for GraphQl.ListTyped.
 type GraphQlListMatch struct {
-	Data *map[string]any `json:"data,omitempty"`
-	Errors *[]any `json:"errors,omitempty"`
-	Message *string `json:"message,omitempty"`
-	OperationName *string `json:"operationName,omitempty"`
-	Query *string `json:"query,omitempty"`
-	Variables *map[string]any `json:"variables,omitempty"`
+	OperationName *string `json:"operation_name,omitempty"`
+	Query string `json:"query"`
+	Variable *string `json:"variable,omitempty"`
 }
 
 // GraphQlCreateData is the typed request payload for GraphQl.CreateTyped.

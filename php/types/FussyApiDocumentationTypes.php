@@ -26,12 +26,9 @@ class GraphQl
 /** Request payload for GraphQl#list. */
 class GraphQlListMatch
 {
-    public ?array $data = null;
-    public ?array $errors = null;
-    public ?string $message = null;
-    public ?string $operationName = null;
-    public ?string $query = null;
-    public ?array $variables = null;
+    public ?string $operation_name = null;
+    public string $query;
+    public ?string $variable = null;
 }
 
 /** Request payload for GraphQl#create. */

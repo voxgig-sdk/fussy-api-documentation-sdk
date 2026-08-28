@@ -15,12 +15,9 @@
 ---@field variables? table
 
 ---@class GraphQlListMatch
----@field data? table
----@field errors? table
----@field message? string
----@field operationName? string
----@field query? string
----@field variables? table
+---@field operation_name? string
+---@field query string
+---@field variable? string
 
 ---@class GraphQlCreateData
 ---@field data? table

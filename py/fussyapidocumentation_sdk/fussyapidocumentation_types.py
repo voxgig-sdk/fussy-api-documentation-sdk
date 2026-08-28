@@ -28,13 +28,13 @@ class GraphQl(GraphQlRequired, total=False):
     variables: dict
 
 
-class GraphQlListMatch(TypedDict, total=False):
-    data: dict
-    errors: list
-    message: str
-    operationName: str
+class GraphQlListMatchRequired(TypedDict):
     query: str
-    variables: dict
+
+
+class GraphQlListMatch(GraphQlListMatchRequired, total=False):
+    operation_name: str
+    variable: str
 
 
 class GraphQlCreateDataRequired(TypedDict):

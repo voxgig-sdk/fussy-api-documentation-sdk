@@ -39,30 +39,18 @@ GraphQl = Struct.new(
 
 # Request payload for GraphQl#list.
 #
-# @!attribute [rw] data
-#   @return [Hash, nil]
-#
-# @!attribute [rw] errors
-#   @return [Array, nil]
-#
-# @!attribute [rw] message
-#   @return [String, nil]
-#
-# @!attribute [rw] operationName
+# @!attribute [rw] operation_name
 #   @return [String, nil]
 #
 # @!attribute [rw] query
-#   @return [String, nil]
+#   @return [String]
 #
-# @!attribute [rw] variables
-#   @return [Hash, nil]
+# @!attribute [rw] variable
+#   @return [String, nil]
 GraphQlListMatch = Struct.new(
-  :data,
-  :errors,
-  :message,
-  :operationName,
+  :operation_name,
   :query,
-  :variables,
+  :variable,
   keyword_init: true
 )
 

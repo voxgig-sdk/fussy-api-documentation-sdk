@@ -15,12 +15,9 @@ export interface GraphQl {
 }
 
 export interface GraphQlListMatch {
-  data?: Record<string, any>
-  errors?: any[]
-  message?: string
-  operationName?: string
-  query?: string
-  variables?: Record<string, any>
+  operation_name?: string
+  query: string
+  variable?: string
 }
 
 export interface GraphQlCreateData {
