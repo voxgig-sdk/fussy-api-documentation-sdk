@@ -88,14 +88,19 @@ module FussyApiDocumentationConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/graphql",
-                  "parts" => [
-                    "graphql",
+                  "segments" => [
+                    {
+                      "lit" => "graphql",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "graphql",
+                  ],
                 },
               ],
             },
@@ -130,8 +135,10 @@ module FussyApiDocumentationConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/graphql",
-                  "parts" => [
-                    "graphql",
+                  "segments" => [
+                    {
+                      "lit" => "graphql",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -144,6 +151,9 @@ module FussyApiDocumentationConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "graphql",
+                  ],
                 },
               ],
             },

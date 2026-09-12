@@ -50,8 +50,10 @@ main: kit: entity: graph_ql: {
         {
           method: "POST"
           orig: "/graphql"
-          parts: [
-            "graphql"
+          segments: [
+            {
+              lit: "graphql"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -91,8 +93,10 @@ main: kit: entity: graph_ql: {
           }
           method: "GET"
           orig: "/graphql"
-          parts: [
-            "graphql"
+          segments: [
+            {
+              lit: "graphql"
+            }
           ]
           select: {
             exist: [

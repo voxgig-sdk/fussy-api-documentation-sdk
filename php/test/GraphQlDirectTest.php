@@ -68,15 +68,17 @@ function graph_ql_direct_setup($mockres)
     $env = Runner::env_override([
         "FUSSY_API_DOCUMENTATION_TEST_GRAPH_QL_ENTID" => [],
         "FUSSY_API_DOCUMENTATION_TEST_LIVE" => "FALSE",
-        "FUSSY_API_DOCUMENTATION_APIKEY" => "NONE",
+        "FUSSY_API_DOCUMENTATION_APIKEY" => "",
     ]);
 
     $live = $env["FUSSY_API_DOCUMENTATION_TEST_LIVE"] === "TRUE";
 
     if ($live) {
-        $merged_opts = [
+        // Merged so the generated fields win: sdk-test-control.json's
+        // test.client.options adds to the live client, it does not redirect it.
+        $merged_opts = array_merge(Runner::live_client_options(), [
             "apikey" => $env["FUSSY_API_DOCUMENTATION_APIKEY"],
-        ];
+        ]);
         $client = new FussyApiDocumentationSDK($merged_opts);
         return [
             "client" => $client,

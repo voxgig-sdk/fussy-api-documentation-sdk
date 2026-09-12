@@ -94,14 +94,22 @@ func graph_qlDirectSetup(mockres any) *graph_qlDirectSetupResult {
 	env := envOverride(map[string]any{
 		"FUSSY_API_DOCUMENTATION_TEST_GRAPH_QL_ENTID": map[string]any{},
 		"FUSSY_API_DOCUMENTATION_TEST_LIVE":    "FALSE",
-		"FUSSY_API_DOCUMENTATION_APIKEY":       "NONE",
+		"FUSSY_API_DOCUMENTATION_APIKEY":       "",
 	})
 
 	live := env["FUSSY_API_DOCUMENTATION_TEST_LIVE"] == "TRUE"
 
 	if live {
-		mergedOpts := map[string]any{
+		// sdk-test-control.json's test.client.options seeds the live
+		// client; the generated fields below overwrite anything they name.
+		mergedOpts := map[string]any{}
+		for k, v := range liveClientOptions() {
+			mergedOpts[k] = v
+		}
+		for k, v := range map[string]any{
 			"apikey": env["FUSSY_API_DOCUMENTATION_APIKEY"],
+		} {
+			mergedOpts[k] = v
 		}
 		client := sdk.NewFussyApiDocumentationSDK(mergedOpts)
 
