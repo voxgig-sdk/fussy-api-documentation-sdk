@@ -105,7 +105,7 @@ local results, err = client:GraphQl():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/fussy-api-documentation` | publish pending — [install from git tag](https://github.com/voxgig-sdk/fussy-api-documentation-sdk/releases) |
+| TypeScript | `@voxgig-sdk/fussy-api-documentation-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/fussy-api-documentation-sdk/releases) |
 | Python | `voxgig-sdk-fussy-api-documentation` | publish pending — [install from git tag](https://github.com/voxgig-sdk/fussy-api-documentation-sdk/releases) |
 | PHP | `voxgig-sdk/fussy-api-documentation` | publish pending — [install from git tag](https://github.com/voxgig-sdk/fussy-api-documentation-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/fussy-api-documentation-sdk/go` | `go get github.com/voxgig-sdk/fussy-api-documentation-sdk/go@latest` |
@@ -119,7 +119,7 @@ local results, err = client:GraphQl():list()
 ### TypeScript
 
 ```ts
-import { FussyApiDocumentationSDK } from '@voxgig-sdk/fussy-api-documentation'
+import { FussyApiDocumentationSDK } from '@voxgig-sdk/fussy-api-documentation-sdk'
 
 const client = new FussyApiDocumentationSDK({
   apikey: process.env.FUSSY_API_DOCUMENTATION_APIKEY,

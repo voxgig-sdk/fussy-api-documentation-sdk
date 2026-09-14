@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { FussyApiDocumentationSDK } from '@voxgig-sdk/fussy-api-documentation'
+import { FussyApiDocumentationSDK } from '@voxgig-sdk/fussy-api-documentation-sdk'
 
 const client = new FussyApiDocumentationSDK({
   apikey: process.env.FUSSY_API_DOCUMENTATION_APIKEY,
@@ -440,7 +440,7 @@ fussy-api-documentation/
 Import the SDK from the package root:
 
 ```ts
-import { FussyApiDocumentationSDK } from '@voxgig-sdk/fussy-api-documentation'
+import { FussyApiDocumentationSDK } from '@voxgig-sdk/fussy-api-documentation-sdk'
 ```
 
 ### Entity state
