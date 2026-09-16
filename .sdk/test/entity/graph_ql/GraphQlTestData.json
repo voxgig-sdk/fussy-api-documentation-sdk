@@ -41,5 +41,277 @@
         "variables": {}
       }
     }
+  },
+  "requests": {
+    "POST /graphql": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "graphqlEndpoint",
+        "parameters": [],
+        "protocol": "http",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "examples": {
+                "createForm": {
+                  "summary": "Create a new form (database)",
+                  "value": {
+                    "query": "mutation createForm($input: CreateFormInput!) {\n  createForm(input: $input) {\n    id\n    title\n  }\n}",
+                    "variables": {
+                      "input": {
+                        "title": "Example Form"
+                      }
+                    }
+                  }
+                },
+                "createResponse": {
+                  "summary": "Create a response to a form",
+                  "value": {
+                    "query": "mutation createResponse($input: CreateResponseInput!) {\n  createResponse(input: $input) {\n    id\n  }\n}",
+                    "variables": {
+                      "input": {
+                        "formId": "form-id-here"
+                      }
+                    }
+                  }
+                },
+                "issueFussyAccessToken": {
+                  "summary": "Issue Access Token",
+                  "value": {
+                    "query": "mutation IssueFussyAccessToken($sessionId: String!) {\n  issueFussyAccessToken(input: {sessionId: $sessionId}) {\n    accessToken\n  }\n}",
+                    "variables": {
+                      "sessionId": "550e8400-e29b-41d4-a716-446655440000"
+                    }
+                  }
+                },
+                "me": {
+                  "summary": "Get current user information",
+                  "value": {
+                    "query": "query me { me { id name } }"
+                  }
+                }
+              },
+              "schema": {
+                "properties": {
+                  "operationName": {
+                    "description": "Name of the operation to execute (if query contains multiple operations)",
+                    "type": "string"
+                  },
+                  "query": {
+                    "description": "GraphQL query or mutation string",
+                    "type": "string"
+                  },
+                  "variables": {
+                    "additionalProperties": true,
+                    "description": "Variables for the GraphQL query/mutation",
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "query"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "accessTokenResponse": {
+                    "summary": "Access Token Response",
+                    "value": {
+                      "data": {
+                        "issueFussyAccessToken": {
+                          "accessToken": "example-access-token-string"
+                        }
+                      }
+                    }
+                  },
+                  "errorResponse": {
+                    "summary": "Error Response",
+                    "value": {
+                      "errors": [
+                        {
+                          "locations": [
+                            {
+                              "column": 1,
+                              "line": 1
+                            }
+                          ],
+                          "message": "Authentication required"
+                        }
+                      ]
+                    }
+                  },
+                  "meResponse": {
+                    "summary": "Current User Response",
+                    "value": {
+                      "data": {
+                        "me": {
+                          "id": "user-id",
+                          "name": "User Name"
+                        }
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "additionalProperties": true,
+                      "description": "The result data from the GraphQL operation",
+                      "type": "object"
+                    },
+                    "errors": {
+                      "description": "Array of errors if the operation failed",
+                      "items": {
+                        "properties": {
+                          "locations": {
+                            "items": {
+                              "properties": {
+                                "column": {
+                                  "type": "integer"
+                                },
+                                "line": {
+                                  "type": "integer"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "message": {
+                            "description": "Error message",
+                            "type": "string"
+                          },
+                          "path": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful GraphQL response"
+          },
+          "400": {
+            "description": "Bad Request - Invalid GraphQL query or variables"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing access token for protected operations"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {},
+          {
+            "AccessToken": []
+          }
+        ],
+        "securitySchemes": {
+          "AccessToken": {
+            "description": "Access token obtained through the OAuth-like authentication flow. Required for mutations and user information queries (me, createForm, createResponse).",
+            "in": "header",
+            "name": "X-Access-Token",
+            "type": "apiKey"
+          }
+        },
+        "securitySource": "operation"
+      }
+    },
+    "GET /graphql": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "graphqlEndpointGet",
+        "parameters": [
+          {
+            "description": "GraphQL query string",
+            "in": "query",
+            "name": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "JSON-encoded variables object",
+            "in": "query",
+            "name": "variables",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Operation name to execute",
+            "in": "query",
+            "name": "operationName",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "additionalProperties": true,
+                      "type": "object"
+                    },
+                    "errors": {
+                      "items": {
+                        "properties": {
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful GraphQL response"
+          }
+        },
+        "security": [
+          {},
+          {
+            "AccessToken": []
+          }
+        ],
+        "securitySchemes": {
+          "AccessToken": {
+            "description": "Access token obtained through the OAuth-like authentication flow. Required for mutations and user information queries (me, createForm, createResponse).",
+            "in": "header",
+            "name": "X-Access-Token",
+            "type": "apiKey"
+          }
+        },
+        "securitySource": "operation"
+      }
+    }
   }
 }

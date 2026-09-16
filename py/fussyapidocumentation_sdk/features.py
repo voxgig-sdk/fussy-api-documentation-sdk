@@ -1,12 +1,18 @@
 # FussyApiDocumentation SDK feature factory
 
 from fussyapidocumentation_sdk.feature.base_feature import FussyApiDocumentationBaseFeature
+from fussyapidocumentation_sdk.feature.ratelimit_feature import FussyApiDocumentationRatelimitFeature
+from fussyapidocumentation_sdk.feature.retry_feature import FussyApiDocumentationRetryFeature
 from fussyapidocumentation_sdk.feature.test_feature import FussyApiDocumentationTestFeature
+from fussyapidocumentation_sdk.feature.timeout_feature import FussyApiDocumentationTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: FussyApiDocumentationBaseFeature(),
+    "ratelimit": lambda: FussyApiDocumentationRatelimitFeature(),
+    "retry": lambda: FussyApiDocumentationRetryFeature(),
     "test": lambda: FussyApiDocumentationTestFeature(),
+    "timeout": lambda: FussyApiDocumentationTimeoutFeature(),
 }
 
 
