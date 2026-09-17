@@ -81,6 +81,7 @@ func MakeConfig() map[string]any {
 			"base": "https://api.fussy.fun",
 			"auth": map[string]any{
 				"prefix": "",
+				"name": "X-Access-Token",
 			},
 			"headers": map[string]any{
 				"content-type": "application/json",

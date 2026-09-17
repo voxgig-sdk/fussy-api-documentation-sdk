@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 class FussyApiDocumentationPrepareAuth
 {
-    private const HEADER_AUTH = 'authorization';
+    private const HEADER_AUTH = 'x-access-token';
     private const OPTION_APIKEY = 'apikey';
     private const NOT_FOUND = '__NOTFOUND__';
 

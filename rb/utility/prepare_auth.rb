@@ -1,7 +1,7 @@
 # FussyApiDocumentation SDK utility: prepare_auth
 require_relative 'struct/voxgig_struct'
 module FussyApiDocumentationUtilities
-  HEADER_AUTH = "authorization"
+  HEADER_AUTH = "x-access-token"
   OPTION_APIKEY = "apikey"
   NOT_FOUND = "__NOTFOUND__"
 

@@ -123,6 +123,7 @@ class Config {
 
     auth: {
       prefix: '',
+      name: 'X-Access-Token',
     },
 
     headers: {
@@ -131,9 +132,9 @@ class Config {
 
     entity: {
       
-      graph_ql: {
-      },
-
+        graph_ql: {
+        },
+  
     }
   }
 

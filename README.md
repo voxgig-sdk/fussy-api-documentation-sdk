@@ -105,12 +105,12 @@ local results, err = client:GraphQl():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/fussy-api-documentation-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/fussy-api-documentation-sdk/releases) |
-| Python | `voxgig-sdk-fussy-api-documentation` | publish pending — [install from git tag](https://github.com/voxgig-sdk/fussy-api-documentation-sdk/releases) |
-| PHP | `voxgig-sdk/fussy-api-documentation` | publish pending — [install from git tag](https://github.com/voxgig-sdk/fussy-api-documentation-sdk/releases) |
+| TypeScript | `@voxgig-sdk/fussy-api-documentation-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/fussy-api-documentation-sdk/tags) |
+| Python | `voxgig-sdk-fussy-api-documentation` | publish pending — [install from git tag](https://github.com/voxgig-sdk/fussy-api-documentation-sdk/tags) |
+| PHP | `voxgig-sdk/fussy-api-documentation` | publish pending — [install from git tag](https://github.com/voxgig-sdk/fussy-api-documentation-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/fussy-api-documentation-sdk/go` | `go get github.com/voxgig-sdk/fussy-api-documentation-sdk/go@latest` |
-| Ruby | `voxgig-sdk-fussy-api-documentation` | publish pending — [install from git tag](https://github.com/voxgig-sdk/fussy-api-documentation-sdk/releases) |
-| Lua | `voxgig-sdk-fussy-api-documentation` | publish pending — [install from git tag](https://github.com/voxgig-sdk/fussy-api-documentation-sdk/releases) |
+| Ruby | `voxgig-sdk-fussy-api-documentation` | publish pending — [install from git tag](https://github.com/voxgig-sdk/fussy-api-documentation-sdk/tags) |
+| Lua | `voxgig-sdk-fussy-api-documentation` | publish pending — [install from git tag](https://github.com/voxgig-sdk/fussy-api-documentation-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/fussy-api-documentation-sdk/go-cli` | `go install github.com/voxgig-sdk/fussy-api-documentation-sdk/go-cli/cmd/fussy-api-documentation@latest` |
 | Go MCP server | `github.com/voxgig-sdk/fussy-api-documentation-sdk/go-mcp` | `go get github.com/voxgig-sdk/fussy-api-documentation-sdk/go-mcp@latest` |
 

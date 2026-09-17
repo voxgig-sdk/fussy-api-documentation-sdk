@@ -104,6 +104,7 @@ class Config {
         base: "https://api.fussy.fun",
         auth: {
             prefix: '',
+            name: 'X-Access-Token',
         },
         headers: {
             "content-type": "application/json"
