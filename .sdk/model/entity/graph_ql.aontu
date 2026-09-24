@@ -1,0 +1,135 @@
+# Entity: graph_ql
+
+main: kit: entity: graph_ql: {
+
+  alias: field: {}
+
+  fields: {
+    data: {
+      h: "Data"
+      n: "data"
+      r: false
+      sh: "The result data from the GraphQL operation"
+      t: "`$OBJECT`"
+    }
+    errors: {
+      h: "Errors"
+      n: "errors"
+      r: false
+      sh: "Array of errors if the operation failed"
+      t: "`$ARRAY`"
+    }
+    message: {
+      h: "Message"
+      n: "message"
+      r: false
+      t: "`$STRING`"
+    }
+    operationName: {
+      h: "Operation Name"
+      n: "operationName"
+      r: false
+      sh: "Name of the operation to execute (if query contains multiple operations)"
+      t: "`$STRING`"
+    }
+    query: {
+      h: "Query"
+      n: "query"
+      r: true
+      sh: "GraphQL query or mutation string"
+      t: "`$STRING`"
+    }
+    variables: {
+      h: "Variables"
+      n: "variables"
+      r: false
+      sh: "Variables for the GraphQL query/mutation"
+      t: "`$OBJECT`"
+    }
+  }
+
+  name: "graph_ql"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /graphql"
+            source: "openapi3"
+            version: 2
+          }
+          m: "POST"
+          o: "/graphql"
+          s: [
+            {
+              lit: "graphql"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /graphql"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                k: "query"
+                n: "operation_name"
+                or: "operation_name"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "query"
+                or: "query"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "variable"
+                or: "variable"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/graphql"
+          q: {
+            exist: [
+              "operation_name"
+              "query"
+              "variable"
+            ]
+          }
+          s: [
+            {
+              lit: "graphql"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

@@ -45,7 +45,7 @@ local graphqls, err = client:GraphQl():list()
 if err then error(err) end
 
 for _, item in ipairs(graphqls) do
-  print(item["message"])
+  print(item)
 end
 ```
 

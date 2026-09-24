@@ -120,33 +120,39 @@ def make_config():
         "fields": [
           {
             "name": "data",
-            "short": "The result data from the GraphQL operation",
+            "title": "Data",
             "type": "`$OBJECT`",
+            "short": "The result data from the GraphQL operation",
           },
           {
             "name": "errors",
-            "short": "Array of errors if the operation failed",
+            "title": "Errors",
             "type": "`$ARRAY`",
+            "short": "Array of errors if the operation failed",
           },
           {
             "name": "message",
+            "title": "Message",
             "type": "`$STRING`",
           },
           {
             "name": "operationName",
-            "short": "Name of the operation to execute (if query contains multiple operations)",
+            "title": "Operation Name",
             "type": "`$STRING`",
+            "short": "Name of the operation to execute (if query contains multiple operations)",
           },
           {
             "name": "query",
+            "title": "Query",
+            "type": "`$STRING`",
             "req": True,
             "short": "GraphQL query or mutation string",
-            "type": "`$STRING`",
           },
           {
             "name": "variables",
-            "short": "Variables for the GraphQL query/mutation",
+            "title": "Variables",
             "type": "`$OBJECT`",
+            "short": "Variables for the GraphQL query/mutation",
           },
         ],
         "name": "graph_ql",
@@ -156,7 +162,6 @@ def make_config():
             "name": "create",
             "points": [
               {
-                "args": {},
                 "kind": "http",
                 "method": "POST",
                 "orig": "/graphql",
@@ -165,14 +170,16 @@ def make_config():
                     "lit": "graphql",
                   },
                 ],
-                "select": {},
+                "parts": [
+                  "graphql",
+                ],
+                "rename": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "parts": [
-                  "graphql",
-                ],
+                "args": {},
+                "select": {},
               },
             ],
           },
@@ -181,29 +188,6 @@ def make_config():
             "name": "list",
             "points": [
               {
-                "args": {
-                  "query": [
-                    {
-                      "kind": "query",
-                      "name": "operation_name",
-                      "orig": "operation_name",
-                      "type": "`$STRING`",
-                    },
-                    {
-                      "kind": "query",
-                      "name": "query",
-                      "orig": "query",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                    {
-                      "kind": "query",
-                      "name": "variable",
-                      "orig": "variable",
-                      "type": "`$STRING`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/graphql",
@@ -212,6 +196,37 @@ def make_config():
                     "lit": "graphql",
                   },
                 ],
+                "parts": [
+                  "graphql",
+                ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "query": [
+                    {
+                      "name": "operation_name",
+                      "orig": "operation_name",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                    },
+                    {
+                      "name": "query",
+                      "orig": "query",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                      "reqd": True,
+                    },
+                    {
+                      "name": "variable",
+                      "orig": "variable",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                    },
+                  ],
+                },
                 "select": {
                   "exist": [
                     "operation_name",
@@ -219,13 +234,6 @@ def make_config():
                     "variable",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
-                "parts": [
-                  "graphql",
-                ],
               },
             ],
           },

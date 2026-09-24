@@ -1,7 +1,7 @@
 // Typed models for the FussyApiDocumentation SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,12 +14,6 @@ import (
 
 // GraphQl is the typed data model for the graph_ql entity.
 type GraphQl struct {
-	Data *map[string]any `json:"data,omitempty"`
-	Errors *[]any `json:"errors,omitempty"`
-	Message *string `json:"message,omitempty"`
-	OperationName *string `json:"operationName,omitempty"`
-	Query string `json:"query"`
-	Variables *map[string]any `json:"variables,omitempty"`
 }
 
 // GraphQlListMatch is the typed request payload for GraphQl.ListTyped.

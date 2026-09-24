@@ -95,33 +95,39 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "data",
-						"short": "The result data from the GraphQL operation",
+						"title": "Data",
 						"type": "`$OBJECT`",
+						"short": "The result data from the GraphQL operation",
 					},
 					map[string]any{
 						"name": "errors",
-						"short": "Array of errors if the operation failed",
+						"title": "Errors",
 						"type": "`$ARRAY`",
+						"short": "Array of errors if the operation failed",
 					},
 					map[string]any{
 						"name": "message",
+						"title": "Message",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "operationName",
-						"short": "Name of the operation to execute (if query contains multiple operations)",
+						"title": "Operation Name",
 						"type": "`$STRING`",
+						"short": "Name of the operation to execute (if query contains multiple operations)",
 					},
 					map[string]any{
 						"name": "query",
+						"title": "Query",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "GraphQL query or mutation string",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "variables",
-						"short": "Variables for the GraphQL query/mutation",
+						"title": "Variables",
 						"type": "`$OBJECT`",
+						"short": "Variables for the GraphQL query/mutation",
 					},
 				},
 				"name": "graph_ql",
@@ -131,7 +137,6 @@ func MakeConfig() map[string]any {
 						"name": "create",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "POST",
 								"orig": "/graphql",
@@ -140,14 +145,16 @@ func MakeConfig() map[string]any {
 										"lit": "graphql",
 									},
 								},
-								"select": map[string]any{},
+								"parts": []any{
+									"graphql",
+								},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"graphql",
-								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -156,29 +163,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"kind": "query",
-											"name": "operation_name",
-											"orig": "operation_name",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "query",
-											"orig": "query",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "variable",
-											"orig": "variable",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/graphql",
@@ -187,19 +171,43 @@ func MakeConfig() map[string]any {
 										"lit": "graphql",
 									},
 								},
+								"parts": []any{
+									"graphql",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "operation_name",
+											"orig": "operation_name",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "query",
+											"orig": "query",
+											"type": "`$STRING`",
+											"kind": "query",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "variable",
+											"orig": "variable",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"operation_name",
 										"query",
 										"variable",
 									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"graphql",
 								},
 							},
 						},

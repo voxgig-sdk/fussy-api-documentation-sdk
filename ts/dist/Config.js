@@ -11,19 +11,12 @@ const FEATURE_CLASS = {
     test: TestFeature_1.TestFeature,
     timeout: TimeoutFeature_1.TimeoutFeature,
 };
-// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
-// the model's active plugin groups. A feature that takes a `plugins` option
-// (secrets over sekreto) reads its own entry; a feature with no plugins has
-// none. Named imports above make each definition statically reachable, so
-// an SDK carries exactly the plugin modules its model selects — the same
-// leanness the old side-effect registry imports bought, without a registry.
 const FEATURE_PLUGINS = {};
 exports.FEATURE_PLUGINS = FEATURE_PLUGINS;
 class Config {
     makeFeature(fn) {
         const fc = FEATURE_CLASS[fn];
         const fi = new fc();
-        // TODO: errors etc
         return fi;
     }
     // False for a feature added at runtime via options.extend (station's
@@ -118,33 +111,39 @@ class Config {
             "fields": [
                 {
                     "name": "data",
-                    "short": "The result data from the GraphQL operation",
-                    "type": "`$OBJECT`"
+                    "title": "Data",
+                    "type": "`$OBJECT`",
+                    "short": "The result data from the GraphQL operation"
                 },
                 {
                     "name": "errors",
-                    "short": "Array of errors if the operation failed",
-                    "type": "`$ARRAY`"
+                    "title": "Errors",
+                    "type": "`$ARRAY`",
+                    "short": "Array of errors if the operation failed"
                 },
                 {
                     "name": "message",
+                    "title": "Message",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "operationName",
-                    "short": "Name of the operation to execute (if query contains multiple operations)",
-                    "type": "`$STRING`"
+                    "title": "Operation Name",
+                    "type": "`$STRING`",
+                    "short": "Name of the operation to execute (if query contains multiple operations)"
                 },
                 {
                     "name": "query",
+                    "title": "Query",
+                    "type": "`$STRING`",
                     "req": true,
-                    "short": "GraphQL query or mutation string",
-                    "type": "`$STRING`"
+                    "short": "GraphQL query or mutation string"
                 },
                 {
                     "name": "variables",
-                    "short": "Variables for the GraphQL query/mutation",
-                    "type": "`$OBJECT`"
+                    "title": "Variables",
+                    "type": "`$OBJECT`",
+                    "short": "Variables for the GraphQL query/mutation"
                 }
             ],
             "name": "graph_ql",
@@ -154,7 +153,6 @@ class Config {
                     "name": "create",
                     "points": [
                         {
-                            "args": {},
                             "kind": "http",
                             "method": "POST",
                             "orig": "/graphql",
@@ -163,14 +161,16 @@ class Config {
                                     "lit": "graphql"
                                 }
                             ],
-                            "select": {},
+                            "parts": [
+                                "graphql"
+                            ],
+                            "rename": {},
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
                             },
-                            "parts": [
-                                "graphql"
-                            ]
+                            "args": {},
+                            "select": {}
                         }
                     ]
                 },
@@ -179,29 +179,6 @@ class Config {
                     "name": "list",
                     "points": [
                         {
-                            "args": {
-                                "query": [
-                                    {
-                                        "kind": "query",
-                                        "name": "operation_name",
-                                        "orig": "operation_name",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "query",
-                                        "orig": "query",
-                                        "reqd": true,
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "variable",
-                                        "orig": "variable",
-                                        "type": "`$STRING`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/graphql",
@@ -210,20 +187,44 @@ class Config {
                                     "lit": "graphql"
                                 }
                             ],
+                            "parts": [
+                                "graphql"
+                            ],
+                            "rename": {},
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "query": [
+                                    {
+                                        "name": "operation_name",
+                                        "orig": "operation_name",
+                                        "type": "`$STRING`",
+                                        "kind": "query"
+                                    },
+                                    {
+                                        "name": "query",
+                                        "orig": "query",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "reqd": true
+                                    },
+                                    {
+                                        "name": "variable",
+                                        "orig": "variable",
+                                        "type": "`$STRING`",
+                                        "kind": "query"
+                                    }
+                                ]
+                            },
                             "select": {
                                 "exist": [
                                     "operation_name",
                                     "query",
                                     "variable"
                                 ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
-                            "parts": [
-                                "graphql"
-                            ]
+                            }
                         }
                     ]
                 }
